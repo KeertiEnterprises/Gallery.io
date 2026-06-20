@@ -231,6 +231,128 @@ footer{
 font-size:36px;
 }
 }
+
+/* --- AI CHATBOT STYLES --- */
+.chatbot-launcher {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 60px;
+    height: 60px;
+    background: rgba(255, 136, 0, 1);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 28px;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    z-index: 2000;
+    transition: transform 0.3s ease, background 0.3s ease;
+}
+
+.chatbot-launcher:hover {
+    transform: scale(1.1);
+    background: #e67a00;
+}
+
+.chatbot-container {
+    position: fixed;
+    bottom: 100px;
+    right: 30px;
+    width: 350px;
+    height: 450px;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 5px 25px rgba(0,0,0,0.15);
+    display: none;
+    flex-direction: column;
+    overflow: hidden;
+    z-index: 2000;
+    border: 1px solid #e5e5e5;
+    font-family: Arial, sans-serif;
+}
+
+.chatbot-header {
+    background: linear-gradient(135deg, rgba(255, 136, 0, 0.93), #c71818);
+    color: white;
+    padding: 15px;
+    font-weight: bold;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.chatbot-close {
+    cursor: pointer;
+    font-size: 20px;
+    opacity: 0.8;
+}
+
+.chatbot-close:hover {
+    opacity: 1;
+}
+
+.chatbot-messages {
+    flex: 1;
+    padding: 15px;
+    overflow-y: auto;
+    background: #f9f9f9;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.chat-msg {
+    padding: 10px 14px;
+    border-radius: 8px;
+    max-width: 80%;
+    font-size: 14px;
+    line-height: 1.4;
+}
+
+.chat-msg.bot {
+    background: #eaeaea;
+    color: #333;
+    align-self: flex-start;
+}
+
+.chat-msg.user {
+    background: rgba(255, 136, 0, 0.93);
+    color: white;
+    align-self: flex-end;
+}
+
+.chatbot-input-area {
+    display: flex;
+    border-top: 1px solid #eee;
+    padding: 10px;
+    background: white;
+}
+
+.chatbot-input-area input {
+    flex: 1;
+    border: 1px solid #ddd;
+    padding: 8px 12px;
+    border-radius: 20px;
+    outline: none;
+}
+
+.chatbot-input-area button {
+    background: #d4af37;
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    margin-left: 8px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.chatbot-input-area button:hover {
+    background: #bfa032;
+}
 </style>
 
 <body>
@@ -333,22 +455,6 @@ font-size:36px;
     </div>
 </section>
 
-<!-- <section>
-    <h2 class="section-title">Customer Reviews</h2>
-
-    <div class="grid">
-        <div class="review">
-            ⭐⭐⭐⭐⭐ <br><br>
-            Excellent fitting and premium quality curtains.
-        </div>
-
-        <div class="review">
-            ⭐⭐⭐⭐⭐ <br><br>
-            Best curtain and blinds service in the city.
-        </div>
-    </div>
-</section> -->
-
 <!-- Added ID: contact -->
 <section class="contact" id="contact">
     <h2 class="section-title" style="color: white;">Contact Us</h2>
@@ -373,6 +479,84 @@ font-size:36px;
 <footer>
     © 2026 KEERTI ENTERPRISES | All Rights Reserved
 </footer>
+
+<!-- --- AI CHATBOT HTML ELEMENTS --- -->
+<div class="chatbot-launcher" id="chatLauncher" onclick="toggleChat()">💬</div>
+
+<div class="chatbot-container" id="chatContainer">
+    <div class="chatbot-header">
+        <span>Keerti AI Assistant</span>
+        <span class="chatbot-close" onclick="toggleChat()">×</span>
+    </div>
+    <div class="chatbot-messages" id="chatMessages">
+        <div class="chat-msg bot">Hi there! How can Keerti Enterprises help you elevate your home interior today?</div>
+    </div>
+    <div class="chatbot-input-area">
+        <input type="text" id="chatInput" placeholder="Type your question..." onkeypress="handleKeyPress(event)">
+        <button onclick="sendChatMessage()">Send</button>
+    </div>
+</div>
+
+<!-- --- AI CHATBOT SCRIPT --- -->
+<script>
+function toggleChat() {
+    const container = document.getElementById('chatContainer');
+    if(container.style.display === 'flex') {
+        container.style.display = 'none';
+    } else {
+        container.style.display = 'flex';
+        scrollToBottom();
+    }
+}
+
+function handleKeyPress(event) {
+    if (event.key === 'Enter') {
+        sendChatMessage();
+    }
+}
+
+function sendChatMessage() {
+    const input = document.getElementById('chatInput');
+    const messageText = input.value.trim();
+    if (!messageText) return;
+
+    // Display user message
+    appendMessage(messageText, 'user');
+    input.value = '';
+
+    // Generate smart mock AI response based on keywords
+    setTimeout(() => {
+        let botResponse = "Thank you for reaching out! For instant designs and customized quotes, feel free to drop us a message directly via WhatsApp or call us at +91 72756 12150.";
+        
+        const lowerTxt = messageText.toLowerCase();
+        if (lowerTxt.includes('curtain')) {
+            botResponse = "We design stunning Luxury, Designer, and Blackout curtains tailored perfectly to your space! Would you like a free home visit for exact measurements?";
+        } else if (lowerTxt.includes('blind') || lowerTxt.includes('zebra') || lowerTxt.includes('roller')) {
+            botResponse = "Our collection includes premium Roller, Zebra, and Venetian Blinds with smooth operations and durable build quality. Let us know if you want to see fabric options!";
+        } else if (lowerTxt.includes('price') || lowerTxt.includes('cost') || lowerTxt.includes('quote')) {
+            botResponse = "Our pricing is highly competitive and depends entirely on custom fabric options and window sizes. We offer a 100% Free Home Visit for precise assessment.";
+        } else if (lowerTxt.includes('where') || lowerTxt.includes('location') || lowerTxt.includes('basti')) {
+            botResponse = "We are located at Companybag Chauraha, near the Press Club in Basti. Stop by, or we can send an installer straight to your home!";
+        }
+
+        appendMessage(botResponse, 'bot');
+    }, 800);
+}
+
+function appendMessage(text, sender) {
+    const chatMessages = document.getElementById('chatMessages');
+    const messageDiv = document.createElement('div');
+    messageDiv.classList.add('chat-msg', sender);
+    messageDiv.innerText = text;
+    chatMessages.appendChild(messageDiv);
+    scrollToBottom();
+}
+
+function scrollToBottom() {
+    const chatMessages = document.getElementById('chatMessages');
+    chatMessages.scrollTop = chatMessages.scrollHeight;
+}
+</script>
 
 </body>
 </html>
