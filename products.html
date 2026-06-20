@@ -1,0 +1,884 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Utkarsh Shukla | Portfolio</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins',sans-serif;
+    scroll-behavior:smooth;
+}
+
+body{
+    background:linear-gradient(
+        135deg,
+        #050014,
+        #110021,
+        #21003d,
+        #32004f
+    );
+    color:white;
+    overflow-x:hidden;
+}
+
+/* Background Glow */
+
+body::before{
+    content:"";
+    position:fixed;
+    width:500px;
+    height:500px;
+    background:radial-gradient(circle,#a855f755,transparent);
+    top:-150px;
+    left:-150px;
+    z-index:-1;
+    animation:blob1 10s ease-in-out infinite;
+}
+
+body::after{
+    content:"";
+    position:fixed;
+    width:450px;
+    height:450px;
+    background:radial-gradient(circle,#7c3aed55,transparent);
+    bottom:-150px;
+    right:-150px;
+    z-index:-1;
+    animation:blob2 12s ease-in-out infinite;
+}
+
+@keyframes blob1{
+    0%,100%{transform:translate(0,0);}
+    50%{transform:translate(80px,60px);}
+}
+
+@keyframes blob2{
+    0%,100%{transform:translate(0,0);}
+    50%{transform:translate(-80px,-60px);}
+}
+
+/* Navbar */
+
+nav{
+    position:sticky;
+    top:0;
+    z-index:1000;
+
+    display:flex;
+    justify-content:space-around;
+    align-items:center;
+
+    height:75px;
+
+    background:rgba(255,255,255,0.05);
+    backdrop-filter:blur(15px);
+    border-bottom:1px solid rgba(255,255,255,0.08);
+}
+
+.logo{
+    font-size:1.7rem;
+    font-weight:700;
+    color:#d8b4fe;
+}
+
+nav ul{
+    display:flex;
+    gap:30px;
+}
+
+nav ul li{
+    list-style:none;
+}
+
+nav ul li a{
+    text-decoration:none;
+    color:white;
+    transition:0.3s;
+}
+
+nav ul li a:hover{
+    color:#d8b4fe;
+}
+
+/* Hero Section */
+
+.firstsection{
+    min-height:90vh;
+    display:flex;
+    justify-content:space-around;
+    align-items:center;
+    padding:40px 8%;
+}
+
+.leftsection{
+    width:50%;
+}
+
+.leftsection h1{
+    font-size:3.5rem;
+    line-height:1.3;
+}
+
+.purple{
+    color:#c084fc;
+}
+
+#element{
+    color:#d946ef;
+    font-weight:700;
+}
+
+.leftsection p{
+    margin-top:20px;
+    color:#cbd5e1;
+    line-height:1.8;
+}
+
+.buttons{
+    margin-top:35px;
+    display:flex;
+    gap:20px;
+    flex-wrap:wrap;
+}
+
+.btn{
+    padding:14px 30px;
+    border:none;
+    border-radius:40px;
+    cursor:pointer;
+    font-size:1rem;
+    font-weight:600;
+    color:white;
+
+    background:linear-gradient(
+        45deg,
+        #7c3aed,
+        #d946ef
+    );
+
+    transition:0.4s;
+}
+
+.btn:hover{
+    transform:translateY(-5px);
+    box-shadow:0 0 25px #d946ef;
+}
+
+.rightsection{
+    width:40%;
+    text-align:center;
+}
+
+.rightsection img{
+    width:90%;
+    max-width:450px;
+    filter:drop-shadow(0 0 25px #c084fc);
+    animation:floating 4s ease-in-out infinite;
+}
+
+@keyframes floating{
+    0%,100%{
+        transform:translateY(0);
+    }
+    50%{
+        transform:translateY(-20px);
+    }
+}
+
+hr{
+    border:none;
+    height:2px;
+    margin:20px 8%;
+    background:linear-gradient(
+        to right,
+        transparent,
+        #c084fc,
+        transparent
+    );
+}
+
+/* Common Section */
+
+.section{
+    max-width:1200px;
+    margin:auto;
+    padding:80px 30px;
+}
+
+.text-gray{
+    color:#94a3b8;
+}
+
+.section h2{
+    font-size:2.5rem;
+    margin-top:10px;
+    margin-bottom:40px;
+}
+
+/* Cards */
+
+.grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+    gap:25px;
+}
+
+.card{
+    background:rgba(255,255,255,0.05);
+    backdrop-filter:blur(10px);
+    border:1px solid rgba(255,255,255,0.08);
+    border-radius:20px;
+    padding:25px;
+    transition:.4s;
+}
+
+.card:hover{
+    transform:translateY(-10px);
+    box-shadow:0 0 25px rgba(216,180,254,.4);
+}
+
+.card h3{
+    color:#d8b4fe;
+    margin-bottom:10px;
+}
+
+.card p{
+    color:#cbd5e1;
+    line-height:1.7;
+}
+
+/* Education */
+
+.education-card{
+    background:rgba(255,255,255,0.05);
+    backdrop-filter:blur(10px);
+    border:1px solid rgba(255,255,255,0.08);
+    border-radius:20px;
+    padding:30px;
+    transition:.4s;
+}
+
+.education-card:hover{
+    transform:translateY(-8px);
+    box-shadow:0 0 25px rgba(216,180,254,.4);
+}
+
+.education-card h3{
+    color:#d8b4fe;
+}
+
+.education-card h4{
+    margin-top:10px;
+    color:#c084fc;
+}
+
+.year{
+    display:block;
+    margin:10px 0 15px;
+    color:#94a3b8;
+}
+
+/* Skills */
+
+.skills-container{
+    display:flex;
+    flex-wrap:wrap;
+    gap:20px;
+}
+
+.skill{
+    padding:15px 30px;
+    border-radius:50px;
+
+    background:linear-gradient(
+        45deg,
+        rgba(124,58,237,.25),
+        rgba(217,70,239,.25)
+    );
+
+    border:1px solid rgba(255,255,255,.1);
+
+    transition:.4s;
+}
+
+.skill:hover{
+    transform:translateY(-5px);
+    box-shadow:0 0 20px rgba(216,180,254,.4);
+}
+
+/* Footer */
+
+footer{
+    text-align:center;
+    padding:40px;
+    color:#94a3b8;
+}
+
+footer a{
+    color: #c084fc;
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+footer a:hover{
+    color: #d946ef;
+    text-shadow: 0 0 10px #d946ef;
+}
+
+/* AI Chatbot Widget Styles */
+
+.bot-widget {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    z-index: 2000;
+    font-family: 'Poppins', sans-serif;
+}
+
+.bot-launcher {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: linear-gradient(45deg, #7c3aed, #d946ef);
+    box-shadow: 0 4px 20px rgba(217, 70, 239, 0.4);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: 0.3s transform ease;
+}
+
+.bot-launcher:hover {
+    transform: scale(1.1);
+}
+
+.bot-launcher svg {
+    width: 28px;
+    height: 28px;
+    fill: white;
+}
+
+.bot-window {
+    position: fixed;
+    bottom: 105px;
+    right: 30px;
+    width: 360px;
+    height: 500px;
+    background: rgba(15, 7, 32, 0.95);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    transform: scale(0);
+    transform-origin: bottom right;
+    transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) transform;
+}
+
+.bot-window.active {
+    transform: scale(1);
+}
+
+.bot-header {
+    background: linear-gradient(45deg, rgba(124,58,237,0.2), rgba(217,70,239,0.2));
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    padding: 15px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.bot-profile {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.bot-avatar {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    background: linear-gradient(45deg, #7c3aed, #d946ef);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    font-size: 0.9rem;
+}
+
+.bot-info h4 {
+    font-size: 0.95rem;
+    color: #d8b4fe;
+}
+
+.bot-info span {
+    font-size: 0.75rem;
+    color: #4ade80;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.bot-info span::before {
+    content: '';
+    display: inline-block;
+    width: 6px;
+    height: 6px;
+    background-color: #4ade80;
+    border-radius: 50%;
+}
+
+.bot-close {
+    background: transparent;
+    border: none;
+    color: #94a3b8;
+    font-size: 1.4rem;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.bot-close:hover {
+    color: white;
+}
+
+.bot-messages {
+    flex: 1;
+    padding: 20px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.msg {
+    max-width: 80%;
+    padding: 12px 16px;
+    border-radius: 15px;
+    font-size: 0.88rem;
+    line-height: 1.5;
+}
+
+.msg.incoming {
+    background: rgba(255, 255, 255, 0.06);
+    color: #cbd5e1;
+    align-self: flex-start;
+    border-top-left-radius: 2px;
+}
+
+.msg.outgoing {
+    background: linear-gradient(45deg, #7c3aed, #d946ef);
+    color: white;
+    align-self: flex-end;
+    border-top-right-radius: 2px;
+    box-shadow: 0 4px 10px rgba(217, 70, 239, 0.2);
+}
+
+.bot-suggestions {
+    padding: 5px 15px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    background: transparent;
+}
+
+.suggest-btn {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 6px 12px;
+    border-radius: 20px;
+    color: #d8b4fe;
+    font-size: 0.78rem;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.suggest-btn:hover {
+    background: rgba(216, 180, 254, 0.15);
+    border-color: #c084fc;
+}
+
+.bot-input-area {
+    padding: 15px;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    display: flex;
+    gap: 10px;
+}
+
+.bot-input-area input {
+    flex: 1;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 12px 15px;
+    border-radius: 25px;
+    color: white;
+    font-size: 0.88rem;
+    outline: none;
+    transition: 0.3s;
+}
+
+.bot-input-area input:focus {
+    border-color: #7c3aed;
+    background: rgba(255, 255, 255, 0.08);
+}
+
+.bot-send {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    background: linear-gradient(45deg, #7c3aed, #d946ef);
+    border: none;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: 0.3s;
+}
+
+.bot-send:hover {
+    transform: scale(1.05);
+}
+
+.bot-send svg {
+    width: 18px;
+    height: 18px;
+    fill: white;
+}
+
+/* Responsive */
+
+@media(max-width:900px){
+
+    .firstsection{
+        flex-direction:column-reverse;
+        text-align:center;
+    }
+
+    .leftsection,
+    .rightsection{
+        width:100%;
+    }
+
+    .leftsection h1{
+        font-size:2.4rem;
+    }
+
+    .buttons{
+        justify-content:center;
+    }
+
+    nav{
+        flex-direction:column;
+        height:auto;
+        padding:15px;
+    }
+
+    nav ul{
+        flex-wrap:wrap;
+        justify-content:center;
+        margin-top:10px;
+    }
+    
+    .bot-window {
+        width: calc(100% - 40px);
+        right: 20px;
+        left: 20px;
+        bottom: 95px;
+    }
+    
+    .bot-widget {
+        bottom: 20px;
+        right: 20px;
+    }
+}
+
+</style>
+</head>
+
+<body>
+
+<header>
+
+<nav>
+    <div class="logo">Utkarsh's Portfolio</div>
+
+    <ul>
+        <li><a href="#">Home</a></li>
+        <li><a href="#experience">Experience</a></li>
+        <li><a href="#education">Education</a></li>
+        <li><a href="#skills">Skills</a></li>
+        <li><a href="#contact">Contact</a></li>
+    </ul>
+</nav>
+
+</header>
+
+<main>
+
+<section class="firstsection">
+
+    <div class="leftsection">
+
+        <h1>
+            Hi, I'm
+            <span class="purple">Utkarsh Shukla</span>
+        </h1>
+
+        <h1>
+            A <span id="element"></span>
+        </h1>
+
+        <p>
+            Passionated Computer Engineering student focused on
+            software development, web technologies, and artificial
+            intelligence. I enjoy building modern digital experiences
+            and continuously improving my technical skills.
+        </p>
+
+        <div class="buttons">
+            <button class="btn" onclick="window.print()">Download Resume</button>
+            <button class="btn" onclick="location.href='#contact'">Contact Me</button>
+        </div>
+
+    </div>
+
+    <div class="rightsection">
+        <img src="pg.png.webp" alt="Portfolio Hero">
+    </div>
+
+</section>
+
+<hr>
+
+<section class="section" id="experience">
+
+    <span class="text-gray">What I Have Done So Far</span>
+    <h2>Work Experience</h2>
+
+    <div class="grid">
+
+        <div class="card">
+            <h3>Frontend Development</h3>
+            <p>
+                Creating responsive websites using HTML, CSS and JavaScript
+                with a focus on performance and user experience.
+            </p>
+        </div>
+
+        <div class="card">
+            <h3>Web Design</h3>
+            <p>
+                Designing modern and attractive user interfaces with
+                attention to usability and visual appeal.
+            </p>
+        </div>
+
+        <div class="card">
+            <h3>Graphic Design</h3>
+            <p>
+                Designing posters, social media creatives and branding
+                materials using modern design principles.
+            </p>
+        </div>
+
+    </div>
+
+</section>
+
+<section class="section" id="education">
+
+    <span class="text-gray">Academic Background</span>
+    <h2>Education</h2>
+
+    <div class="education-card">
+
+        <h3>B.Tech in Computer Engineering</h3>
+
+        <h4>KIPM College of Engineering & Technology</h4>
+
+        <span class="year">2025 - Present</span>
+
+        <p>
+            Currently pursuing a Bachelor of Technology in Computer Engineering.
+            My studies focus on Software Development, Artificial Intelligence,
+            Programming Fundamentals, Web Technologies, Data Structures,
+            and modern computing practices. I actively work on projects to
+            strengthen my practical and problem-solving skills.
+        </p>
+
+    </div>
+
+</section>
+
+<section class="section" id="skills">
+
+    <span class="text-gray">Technologies I Use</span>
+    <h2>Skills</h2>
+
+    <div class="skills-container">
+
+        <div class="skill">HTML5</div>
+        <div class="skill">CSS</div>
+        <div class="skill">JavaScript</div>
+        <div class="skill">Python</div>
+        <div class="skill">GitHub</div>
+        <div class="skill">UI Design</div>
+
+    </div>
+
+</section>
+<section class="section" id="contact">
+    <footer>
+    <p>© 2026 Utkarsh Shukla | Computer Engineering Student </p>
+
+    <p style="margin-top:10px;">
+        📧 <a href="mailto:utkarshgov200777@gmail.com">utkarshgov200777@gmail.com</a>
+    </p>
+
+    <p style="margin-top:5px;">
+         <a target= "_blank" href="https://github.com/Mrfree2007">github</a>
+    </p>
+</footer>
+</section>
+
+</main>
+
+<footer>
+    © 2026 Utkarsh Shukla | Computer Engineering Student </footer>
+
+<div class="bot-widget">
+    <div class="bot-launcher" id="botLauncher">
+        <svg viewBox="0 0 24 24">
+            <path d="M12,2A10,10 0 0,1 22,12A10,10 0 0,1 12,22A10,10 0 0,1 2,12A10,10 0 0,1 12,2M12,4A8,8 0 0,0 4,12C4,14.42 5.08,16.59 6.77,18l1.41,-1.41C7.43,15.62 7,14.11 7,12.5C7,9.46 9.46,7 12.5,7C14.11,7 15.62,7.43 16.59,8.18L18,6.77C16.59,5.08 14.42,4 12,4M12.5,9C10.57,9 9,10.57 9,12.5C9,13.44 9.38,14.3 10,14.93L14.93,10C14.3,9.38 13.44,9 12.5,9Z" />
+        </svg>
+    </div>
+    
+    <div class="bot-window" id="botWindow">
+        <div class="bot-header">
+            <div class="bot-profile">
+                <div class="bot-avatar">🤖</div>
+                <div class="bot-info">
+                    <h4>Utkarsh's AI Assistant</h4>
+                    <span>Active Now</span>
+                </div>
+            </div>
+            <button class="bot-close" id="botClose">&times;</button>
+        </div>
+        
+        <div class="bot-messages" id="botMessages">
+            <div class="msg incoming">Hi there! 👋 I am Utkarsh's AI assistant. Ask me anything about his skills, education, or projects!</div>
+        </div>
+        
+        <div class="bot-suggestions">
+            <button class="suggest-btn" onclick="sendPreset('What are your skills?')">Skills?</button>
+            <button class="suggest-btn" onclick="sendPreset('Where do you study?')">Education?</button>
+            <button class="suggest-btn" onclick="sendPreset('How can I contact you?')">Contact Info?</button>
+        </div>
+        
+        <div class="bot-input-area">
+            <input type="text" id="botInput" placeholder="Type a message..." autocomplete="off">
+            <button class="bot-send" id="botSend">
+                <svg viewBox="0 0 24 24">
+                    <path d="M2,21L23,12L2,3V10L17,12L2,14V21Z" />
+                </svg>
+            </button>
+        </div>
+    </div>
+</div>
+
+<script src="https://unpkg.com/typed.js@2.1.0/dist/typed.umd.js"></script>
+
+<script>
+new Typed('#element', {
+    strings: [
+        'Frontend Developer ',
+        'Computer Engineering Student ',
+        'UI Designer ',
+        'Python Learner '
+    ],
+    typeSpeed: 70,
+    backSpeed: 50,
+    backDelay: 1500,
+    loop: true
+});
+
+// Chatbot Functionality Logic
+const botLauncher = document.getElementById('botLauncher');
+const botWindow = document.getElementById('botWindow');
+const botClose = document.getElementById('botClose');
+const botSend = document.getElementById('botSend');
+const botInput = document.getElementById('botInput');
+const botMessages = document.getElementById('botMessages');
+
+botLauncher.addEventListener('click', () => {
+    botWindow.classList.add('active');
+});
+
+botClose.addEventListener('click', () => {
+    botWindow.classList.remove('active');
+});
+
+function appendMessage(text, side) {
+    const msgDiv = document.createElement('div');
+    msgDiv.classList.add('msg', side);
+    msgDiv.innerText = text;
+    botMessages.appendChild(msgDiv);
+    botMessages.scrollTop = botMessages.scrollHeight;
+}
+
+function processResponse(userText) {
+    const text = userText.toLowerCase();
+    let reply = "I am not quite sure about that. You can email Utkarsh directly at utkarshgov200777@gmail.com for specific inquiries!";
+    
+    if (text.includes('skill') || text.includes('know') || text.includes('technology') || text.includes('language')) {
+        reply = "Utkarsh is skilled in HTML5, CSS, JavaScript, Python, GitHub, and UI Design! He likes building interactive frontend web frameworks.";
+    } else if (text.includes('education') || text.includes('study') || text.includes('college') || text.includes('b.tech') || text.includes('kipm')) {
+        reply = "Utkarsh is pursuing his B.Tech in Computer Engineering at KIPM College of Engineering & Technology (2025 - Present batch).";
+    } else if (text.includes('contact') || text.includes('email') || text.includes('gmail') || text.includes('hire') || text.includes('github')) {
+        reply = "You can contact Utkarsh via email at utkarshgov200777@gmail.com or explore his open-source work on GitHub (Mrfree2007). Click the contact section links to reach him directly!";
+    } else if (text.includes('hello') || text.includes('hi') || text.includes('hey') || text.includes('sup')) {
+        reply = "Hello! How can I assist you today? Feel free to ask about Utkarsh's background or skills.";
+    } else if (text.includes('experience') || text.includes('work')) {
+        reply = "Utkarsh specializes in Frontend Web Development, beautiful UI design structures, and Graphic design layouts.";
+    }
+
+    setTimeout(() => {
+        appendMessage(reply, 'incoming');
+    }, 600);
+}
+
+function handleSend() {
+    const text = botInput.value.trim();
+    if (!text) return;
+    
+    appendMessage(text, 'outgoing');
+    botInput.value = '';
+    processResponse(text);
+}
+
+botSend.addEventListener('click', handleSend);
+botInput.addEventListener('keypress', (e) => {
+    if (e.key === 'Enter') handleSend();
+});
+
+function sendPreset(text) {
+    appendMessage(text, 'outgoing');
+    processResponse(text);
+}
+</script>
+
+</body>
+</html>
