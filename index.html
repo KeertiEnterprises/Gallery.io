@@ -1,1969 +1,965 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta name="google-site-verification" content="cwSCd9UivBO7Xu_g62Ax5n_yDZyDH1rfKl6Bc0CiFu8" />
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Keerti Enterprises - 3D Experience</title>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;600&display=swap');
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        :root {
-            --primary: #FF8C00;
-            --secondary: #ff00a0;
-            --accent: #ffd700;
-            --dark: #0a0a0f;
-            --darker: #050508;
-            --glass: rgba(255, 255, 255, 0.05);
-        }
-
-        body {
-            font-family: 'Inter', sans-serif;
-            background: var(--darker);
-            color: #fff;
-            overflow-x: hidden;
-            perspective: 1000px;
-        }
-
-        ::-webkit-scrollbar {
-            width: 8px;
-        }
-
-        ::-webkit-scrollbar-track {
-            background: var(--dark);
-        }
-
-        ::-webkit-scrollbar-thumb {
-            background: linear-gradient(180deg, var(--primary), var(--secondary));
-            border-radius: 4px;
-        }
-
-        /* ===== NAVIGATION ===== */
-        nav {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            padding: 20px 50px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            z-index: 1000;
-            background: rgba(5, 5, 8, 0.8);
-            backdrop-filter: blur(20px);
-            border-bottom: 1px solid rgba(255, 140, 0, 0.1);
-        }
-
-        .logo {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 1.8rem;
-            font-weight: 900;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-        }
-
-        .logo span.highlight {
-            color: #FF8C00;
-        }
-
-        .logo span.sub {
-            color: #e0a96d;
-            font-weight: 400;
-            font-size: 1.5rem;
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 40px;
-            list-style: none;
-        }
-
-        .nav-links a {
-            color: #fff;
-            text-decoration: none;
-            font-size: 0.9rem;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            position: relative;
-            transition: 0.3s;
-        }
-
-        .nav-links a::after {
-            content: '';
-            position: absolute;
-            bottom: -5px;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: linear-gradient(90deg, var(--primary), var(--secondary));
-            transition: 0.3s;
-        }
-
-        .nav-links a:hover::after {
-            width: 100%;
-        }
-
-        .nav-links a:hover {
-            color: var(--primary);
-        }
-
-        .hamburger {
-            display: none;
-            cursor: pointer;
-        }
-
-        /* ===== HERO SECTION ===== */
-        .hero {
-            height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-            overflow: hidden;
-            background: radial-gradient(ellipse at center, #1a1a2e 0%, var(--darker) 70%);
-        }
-
-        .hero-bg-grid {
-            position: absolute;
-            width: 200%;
-            height: 200%;
-            background-image: linear-gradient(rgba(255, 140, 0, 0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 140, 0, 0.03) 1px, transparent 1px);
-            background-size: 50px 50px;
-            transform: perspective(500px) rotateX(60deg);
-            animation: gridMove 20s linear infinite;
-        }
-
-        @keyframes gridMove {
-            0% {
-                transform: perspective(500px) rotateX(60deg) translateY(0);
-            }
-
-            100% {
-                transform: perspective(500px) rotateX(60deg) translateY(50px);
-            }
-        }
-
-        .cube-container {
-            width: 200px;
-            height: 200px;
-            perspective: 1000px;
-            position: absolute;
-            right: 15%;
-            top: 50%;
-            transform: translateY(-50%);
-        }
-
-        .cube {
-            width: 100%;
-            height: 100%;
-            position: relative;
-            transform-style: preserve-3d;
-            animation: rotateCube 15s infinite linear;
-        }
-
-        .cube-face {
-            position: absolute;
-            width: 200px;
-            height: 200px;
-            border: 2px solid rgba(255, 140, 0, 0.3);
-            background: rgba(255, 140, 0, 0.05);
-            backdrop-filter: blur(5px);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-family: 'Orbitron', sans-serif;
-            font-size: 2.2rem;
-            font-weight: 700;
-            color: var(--primary);
-            box-shadow: 0 0 30px rgba(255, 140, 0, 0.2);
-            letter-spacing: 2px;
-        }
-
-        .cube-face:nth-child(1) {
-            transform: rotateY(0deg) translateZ(100px);
-        }
-
-        .cube-face:nth-child(2) {
-            transform: rotateY(90deg) translateZ(100px);
-        }
-
-        .cube-face:nth-child(3) {
-            transform: rotateY(180deg) translateZ(100px);
-        }
-
-        .cube-face:nth-child(4) {
-            transform: rotateY(-90deg) translateZ(100px);
-        }
-
-        .cube-face:nth-child(5) {
-            transform: rotateX(90deg) translateZ(100px);
-        }
-
-        .cube-face:nth-child(6) {
-            transform: rotateX(-90deg) translateZ(100px);
-        }
-
-        @keyframes rotateCube {
-            0% {
-                transform: rotateX(0deg) rotateY(0deg);
-            }
-
-            100% {
-                transform: rotateX(360deg) rotateY(360deg);
-            }
-        }
-
-        .hero-content {
-            position: relative;
-            z-index: 10;
-            text-align: left;
-            max-width: 850px;
-            padding-left: 10%;
-            margin-right: auto;
-        }
-
-        .hero-subtitle {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 1rem;
-            color: var(--primary);
-            letter-spacing: 5px;
-            margin-bottom: 20px;
-            opacity: 0;
-            animation: fadeInUp 1s ease forwards 0.5s;
-        }
-
-        .hero-title {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 4.5rem;
-            font-weight: 900;
-            line-height: 1.1;
-            margin-bottom: 30px;
-            opacity: 0;
-            animation: fadeInUp 1s ease forwards 0.8s;
-        }
-
-        .hero-title span {
-            display: block;
-            background: linear-gradient(135deg, #fff 0%, var(--primary) 50%, var(--secondary) 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .hero-desc {
-            font-size: 1.1rem;
-            color: rgba(255, 255, 255, 0.7);
-            line-height: 1.8;
-            margin-bottom: 40px;
-            max-width: 600px;
-            opacity: 0;
-            animation: fadeInUp 1s ease forwards 1.1s;
-        }
-
-        .hero-btn {
-            display: inline-block;
-            padding: 15px 40px;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            color: #fff;
-            text-decoration: none;
-            font-family: 'Orbitron', sans-serif;
-            font-size: 0.9rem;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            border-radius: 50px;
-            position: relative;
-            overflow: hidden;
-            transition: 0.3s;
-            opacity: 0;
-            animation: fadeInUp 1s ease forwards 1.4s;
-            border: none;
-            cursor: pointer;
-        }
-
-        .hero-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 40px rgba(255, 140, 0, 0.4);
-        }
-
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .particles {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            overflow: hidden;
-            pointer-events: none;
-        }
-
-        .particle {
-            position: absolute;
-            width: 4px;
-            height: 4px;
-            background: var(--primary);
-            border-radius: 50%;
-            animation: float 10s infinite;
-            box-shadow: 0 0 10px var(--primary);
-        }
-
-        @keyframes float {
-
-            0%,
-            100% {
-                transform: translateY(100vh) rotate(0deg);
-                opacity: 0;
-            }
-
-            10% {
-                opacity: 1;
-            }
-
-            90% {
-                opacity: 1;
-            }
-
-            100% {
-                transform: translateY(-100vh) rotate(720deg);
-                opacity: 0;
-            }
-        }
-
-        /* ===== SECTIONS COMMON ===== */
-        .section-header {
-            text-align: center;
-            margin-bottom: 80px;
-        }
-
-        .section-tag {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 0.9rem;
-            color: var(--primary);
-            letter-spacing: 5px;
-            text-transform: uppercase;
-            margin-bottom: 20px;
-        }
-
-        .section-title {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 3rem;
-            font-weight: 700;
-            margin-bottom: 20px;
-        }
-
-        .section-title span {
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        /* ===== WHY CHOOSE US ===== */
-        .features {
-            padding: 150px 10%;
-            background: var(--dark);
-            position: relative;
-        }
-
-        .cards-container {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 40px;
-            perspective: 1000px;
-        }
-
-        .card-3d {
-            position: relative;
-            height: 400px;
-            transform-style: preserve-3d;
-            transition: transform 0.6s;
-            cursor: pointer;
-        }
-
-        .card-3d:hover {
-            transform: rotateY(10deg) rotateX(5deg) translateZ(30px);
-        }
-
-        .card-inner {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, rgba(255, 140, 0, 0.1), rgba(255, 0, 160, 0.1));
-            border: 1px solid rgba(255, 140, 0, 0.2);
-            border-radius: 20px;
-            padding: 40px;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            backdrop-filter: blur(10px);
-            transform-style: preserve-3d;
-            transition: 0.3s;
-        }
-
-        .card-3d:hover .card-inner {
-            box-shadow: 0 20px 60px rgba(255, 140, 0, 0.2), inset 0 0 60px rgba(255, 140, 0, 0.05);
-            border-color: rgba(255, 140, 0, 0.5);
-        }
-
-        .card-icon {
-            width: 70px;
-            height: 70px;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            border-radius: 15px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 2rem;
-            transform: translateZ(40px);
-            box-shadow: 0 10px 30px rgba(255, 140, 0, 0.3);
-        }
-
-        .card-content h3 {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 1.5rem;
-            margin-bottom: 15px;
-            transform: translateZ(30px);
-        }
-
-        .card-content p {
-            color: rgba(255, 255, 255, 0.7);
-            line-height: 1.7;
-            transform: translateZ(20px);
-        }
-
-        .card-number {
-            position: absolute;
-            bottom: 30px;
-            right: 30px;
-            font-family: 'Orbitron', sans-serif;
-            font-size: 4rem;
-            font-weight: 900;
-            color: rgba(255, 140, 0, 0.1);
-            transform: translateZ(10px);
-        }
-
-        /* ===== CATEGORIES ===== */
-        .categories-section {
-            padding: 150px 10%;
-            background: var(--darker);
-            position: relative;
-        }
-
-        .category-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 30px;
-        }
-
-        .category-card {
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(255, 140, 0, 0.2);
-            border-radius: 15px;
-            overflow: hidden;
-            transition: all 0.4s ease;
-        }
-
-        .category-card:hover {
-            transform: translateY(-10px);
-            border-color: var(--primary);
-            box-shadow: 0 15px 40px rgba(255, 140, 0, 0.15);
-        }
-
-        .category-card img {
-            width: 100%;
-            height: 220px;
-            object-fit: cover;
-            opacity: 0.8;
-            transition: 0.4s;
-        }
-
-        .category-card:hover img {
-            opacity: 1;
-            transform: scale(1.05);
-        }
-
-        .category-card h3 {
-            font-family: 'Orbitron', sans-serif;
-            padding: 20px;
-            text-align: center;
-            font-size: 1.1rem;
-            color: #fff;
-        }
-
-        /* ===== 3D GALLERY ===== */
-        .gallery {
-            padding: 150px 10%;
-            background: var(--dark);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .gallery::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 1px;
-            background: linear-gradient(90deg, transparent, var(--primary), transparent);
-        }
-
-        .gallery-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 30px;
-            perspective: 2000px;
-        }
-
-        .flip-card {
-            height: 350px;
-            perspective: 1000px;
-            cursor: pointer;
-        }
-
-        .flip-card-inner {
-            position: relative;
-            width: 100%;
-            height: 100%;
-            transform-style: preserve-3d;
-            transition: transform 0.8s;
-        }
-
-        .flip-card:hover .flip-card-inner {
-            transform: rotateY(180deg);
-        }
-
-        .flip-card-front,
-        .flip-card-back {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            backface-visibility: hidden;
-            border-radius: 15px;
-            overflow: hidden;
-        }
-
-        .flip-card-front {
-            background: linear-gradient(135deg, #1a1a2e, #16213e);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border: 1px solid rgba(255, 140, 0, 0.2);
-        }
-
-        .flip-card-front img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            opacity: 0.6;
-        }
-
-        .flip-card-front .overlay {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            padding: 20px;
-            background: linear-gradient(transparent, rgba(0, 0, 0, 0.9));
-        }
-
-        .flip-card-front h4 {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 1.2rem;
-        }
-
-        .flip-card-back {
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            transform: rotateY(180deg);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            padding: 30px;
-            text-align: center;
-        }
-
-        .flip-card-back h4 {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 1.3rem;
-            margin-bottom: 15px;
-            color: #fff;
-        }
-
-        .flip-card-back p {
-            font-size: 0.95rem;
-            color: #fff;
-            opacity: 0.9;
-            line-height: 1.6;
-        }
-
-        /* ===== SHOWCASE TEXT ===== */
-        .showcase {
-            padding: 150px 10%;
-            background: var(--darker);
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .showcase-bg {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            font-family: 'Orbitron', sans-serif;
-            font-size: 20vw;
-            font-weight: 900;
-            color: rgba(255, 140, 0, 0.03);
-            white-space: nowrap;
-            pointer-events: none;
-            animation: bgTextMove 20s linear infinite;
-        }
-
-        @keyframes bgTextMove {
-            0% {
-                transform: translate(-50%, -50%) translateX(0);
-            }
-
-            100% {
-                transform: translate(-50%, -50%) translateX(-50%);
-            }
-        }
-
-        .showcase-3d-text {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 5rem;
-            font-weight: 900;
-            line-height: 1.2;
-            margin-bottom: 40px;
-            transform-style: preserve-3d;
-            animation: text3D 3s ease-in-out infinite;
-        }
-
-        .showcase-3d-text span {
-            display: inline-block;
-            background: linear-gradient(135deg, #fff, var(--primary), var(--secondary));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            text-shadow: 1px 1px 0 rgba(255, 140, 0, 0.3), 2px 2px 0 rgba(255, 140, 0, 0.2), 3px 3px 0 rgba(255, 140, 0, 0.1);
-        }
-
-        @keyframes text3D {
-
-            0%,
-            100% {
-                transform: rotateX(0deg) rotateY(0deg);
-            }
-
-            25% {
-                transform: rotateX(5deg) rotateY(5deg);
-            }
-
-            50% {
-                transform: rotateX(0deg) rotateY(10deg);
-            }
-
-            75% {
-                transform: rotateX(-5deg) rotateY(5deg);
-            }
-        }
-
-        .showcase-desc {
-            max-width: 700px;
-            margin: 0 auto 50px;
-            font-size: 1.1rem;
-            color: rgba(255, 255, 255, 0.7);
-            line-height: 1.8;
-        }
-
-        .pyramid-container {
-            width: 200px;
-            height: 200px;
-            margin: 60px auto;
-            perspective: 1000px;
-        }
-
-        .pyramid {
-            width: 100%;
-            height: 100%;
-            position: relative;
-            transform-style: preserve-3d;
-            animation: rotatePyramid 10s infinite linear;
-        }
-
-        .pyramid-face {
-            position: absolute;
-            width: 0;
-            height: 0;
-            border-left: 100px solid transparent;
-            border-right: 100px solid transparent;
-            border-bottom: 173px solid rgba(255, 140, 0, 0.2);
-            transform-origin: bottom center;
-        }
-
-        .pyramid-face:nth-child(1) {
-            transform: rotateY(0deg) translateZ(58px) rotateX(30deg);
-        }
-
-        .pyramid-face:nth-child(2) {
-            transform: rotateY(90deg) translateZ(58px) rotateX(30deg);
-        }
-
-        .pyramid-face:nth-child(3) {
-            transform: rotateY(180deg) translateZ(58px) rotateX(30deg);
-        }
-
-        .pyramid-face:nth-child(4) {
-            transform: rotateY(-90deg) translateZ(58px) rotateX(30deg);
-        }
-
-        @keyframes rotatePyramid {
-            0% {
-                transform: rotateX(-20deg) rotateY(0deg);
-            }
-
-            100% {
-                transform: rotateX(-20deg) rotateY(360deg);
-            }
-        }
-
-        /* ===== STATS SECTION ===== */
-        .stats {
-            padding: 150px 10%;
-            background: var(--dark);
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 40px;
-            position: relative;
-        }
-
-        .stat-card {
-            background: linear-gradient(135deg, rgba(255, 140, 0, 0.05), rgba(255, 0, 160, 0.05));
-            border: 1px solid rgba(255, 140, 0, 0.1);
-            border-radius: 20px;
-            padding: 40px;
-            text-align: center;
-            transform-style: preserve-3d;
-            transition: transform 0.3s, box-shadow 0.3s;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .stat-card:hover {
-            transform: translateZ(30px) rotateX(5deg);
-            box-shadow: 0 20px 60px rgba(255, 140, 0, 0.15);
-            border-color: rgba(255, 140, 0, 0.3);
-        }
-
-        .stat-number {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 3.5rem;
-            font-weight: 900;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            margin-bottom: 10px;
-        }
-
-        .stat-label {
-            font-size: 0.9rem;
-            color: rgba(255, 255, 255, 0.6);
-            letter-spacing: 2px;
-            text-transform: uppercase;
-        }
-
-        /* ===== FAQS ===== */
-        .faq-section {
-            padding: 150px 10%;
-            background: var(--darker);
-        }
-
-        .faq-container {
-            max-width: 800px;
-            margin: 0 auto;
-        }
-
-        .faq-item {
-            background: rgba(255, 255, 255, 0.02);
-            border: 1px solid rgba(255, 140, 0, 0.15);
-            border-radius: 12px;
-            margin-bottom: 20px;
-            padding: 20px 25px;
-            transition: all 0.3s;
-        }
-
-        .faq-item:hover {
-            border-color: var(--primary);
-        }
-
-        .faq-question {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 1.1rem;
-            color: #fff;
-            cursor: pointer;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            user-select: none;
-        }
-
-        .faq-answer {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.3s ease-out;
-            color: rgba(255, 255, 255, 0.7);
-            line-height: 1.6;
-        }
-
-        .faq-answer p {
-            padding-top: 15px;
-            font-size: 0.95rem;
-        }
-
-        .faq-icon {
-            font-size: 1.5rem;
-            color: var(--primary);
-            transition: transform 0.3s ease;
-        }
-
-        .faq-item.active .faq-icon {
-            transform: rotate(45deg);
-        }
-
-        /* ===== DUAL TESTIMONIALS + REVIEW FORM ===== */
-        .testimonials {
-            padding: 150px 10%;
-            background: var(--dark);
-            text-align: center;
-        }
-
-        .feedback-dual-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 60px;
-            align-items: center;
-            max-width: 1100px;
-            margin: 0 auto;
-        }
-
-        .prism-container {
-            width: 300px;
-            height: 300px;
-            margin: 40px auto;
-            perspective: 1000px;
-        }
-
-        .prism {
-            width: 100%;
-            height: 100%;
-            position: relative;
-            transform-style: preserve-3d;
-            animation: rotatePrism 12s infinite linear;
-        }
-
-        .prism-face {
-            position: absolute;
-            width: 300px;
-            height: 200px;
-            background: linear-gradient(135deg, rgba(255, 140, 0, 0.1), rgba(255, 0, 160, 0.1));
-            border: 1px solid rgba(255, 140, 0, 0.2);
-            border-radius: 15px;
-            padding: 30px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            backdrop-filter: blur(10px);
-            backface-visibility: hidden;
-        }
-
-        .prism-face:nth-child(1) {
-            transform: rotateY(0deg) translateZ(130px);
-        }
-
-        .prism-face:nth-child(2) {
-            transform: rotateY(120deg) translateZ(130px);
-        }
-
-        .prism-face:nth-child(3) {
-            transform: rotateY(240deg) translateZ(130px);
-        }
-
-        .prism-text {
-            font-style: italic;
-            color: rgba(255, 255, 255, 0.8);
-            line-height: 1.6;
-            margin-bottom: 20px;
-        }
-
-        .prism-author {
-            font-family: 'Orbitron', sans-serif;
-            color: var(--primary);
-            font-size: 0.9rem;
-        }
-
-        @keyframes rotatePrism {
-            0% {
-                transform: rotateY(0deg);
-            }
-
-            100% {
-                transform: rotateY(360deg);
-            }
-        }
-
-        .live-review-card {
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(255, 140, 0, 0.25);
-            padding: 40px;
-            border-radius: 24px;
-            text-align: left;
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6);
-        }
-
-        .live-review-card input,
-        .live-review-card textarea {
-            width: 100%;
-            padding: 14px;
-            margin-bottom: 18px;
-            background: rgba(255, 255, 255, 0.06);
-            border: 1px solid rgba(255, 140, 0, 0.3);
-            border-radius: 10px;
-            color: #fff;
-            font-family: 'Inter', sans-serif;
-            outline: none;
-            transition: 0.3s;
-        }
-
-        .live-review-card input:focus,
-        .live-review-card textarea:focus {
-            border-color: var(--primary);
-            box-shadow: 0 0 15px rgba(255, 140, 0, 0.2);
-        }
-
-        /* ===== CONTACT SECTION ===== */
-        .contact {
-            padding: 150px 10%;
-            background: var(--darker);
-            position: relative;
-        }
-
-        .contact::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 1px;
-            background: linear-gradient(90deg, transparent, var(--secondary), transparent);
-        }
-
-        .contact-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 80px;
-            align-items: center;
-        }
-
-        .contact-form {
-            background: linear-gradient(135deg, rgba(255, 140, 0, 0.05), rgba(255, 0, 160, 0.05));
-            border: 1px solid rgba(255, 140, 0, 0.1);
-            border-radius: 20px;
-            padding: 50px;
-            transform-style: preserve-3d;
-            transition: 0.3s;
-        }
-
-        .contact-form:hover {
-            transform: translateZ(20px);
-            box-shadow: 0 20px 60px rgba(255, 140, 0, 0.1);
-            border-color: rgba(255, 140, 0, 0.3);
-        }
-
-        .form-group {
-            margin-bottom: 25px;
-        }
-
-        .form-group label {
-            display: block;
-            font-family: 'Orbitron', sans-serif;
-            font-size: 0.8rem;
-            color: var(--primary);
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            margin-bottom: 10px;
-        }
-
-        .form-group input,
-        .form-group textarea {
-            width: 100%;
-            padding: 15px 20px;
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 140, 0, 0.2);
-            border-radius: 10px;
-            color: #fff;
-            font-family: 'Inter', sans-serif;
-            outline: none;
-        }
-
-        .form-group input:focus,
-        .form-group textarea:focus {
-            border-color: var(--primary);
-            box-shadow: 0 0 20px rgba(255, 140, 0, 0.2);
-        }
-
-        .form-group textarea {
-            min-height: 120px;
-            resize: vertical;
-        }
-
-        .submit-btn {
-            width: 100%;
-            padding: 18px;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            border: none;
-            border-radius: 10px;
-            color: #fff;
-            font-family: 'Orbitron', sans-serif;
-            font-size: 1rem;
-            letter-spacing: 3px;
-            text-transform: uppercase;
-            cursor: pointer;
-            transition: 0.3s;
-        }
-
-        .submit-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 40px rgba(255, 140, 0, 0.4);
-        }
-
-        .contact-info h3 {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 2rem;
-            margin-bottom: 30px;
-        }
-
-        .contact-info h3 span {
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .contact-item {
-            display: flex;
-            align-items: center;
-            gap: 20px;
-            margin-bottom: 30px;
-            padding: 20px;
-            background: rgba(255, 255, 255, 0.03);
-            border-radius: 15px;
-            border: 1px solid rgba(255, 140, 0, 0.1);
-            transition: 0.3s;
-            text-decoration: none;
-            color: inherit;
-        }
-
-        .contact-item:hover {
-            transform: translateX(10px);
-            border-color: rgba(255, 140, 0, 0.3);
-        }
-
-        .contact-icon {
-            width: 50px;
-            height: 50px;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
-        }
-
-        /* ===== FOOTER ===== */
-        footer {
-            padding: 50px 10%;
-            background: var(--darker);
-            border-top: 1px solid rgba(255, 140, 0, 0.1);
-            text-align: center;
-        }
-
-        .footer-logo {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 2rem;
-            font-weight: 900;
-            margin-bottom: 20px;
-        }
-
-        .footer-links {
-            display: flex;
-            justify-content: center;
-            gap: 40px;
-            margin-bottom: 30px;
-        }
-
-        .footer-links a {
-            color: rgba(255, 255, 255, 0.6);
-            text-decoration: none;
-            font-size: 0.9rem;
-            transition: 0.3s;
-        }
-
-        .footer-links a:hover {
-            color: var(--primary);
-        }
-
-        .footer-copy {
-            color: rgba(255, 255, 255, 0.4);
-            font-size: 0.85rem;
-        }
-
-        /* ===== SCROLL & SLIDER ===== */
-        .reveal,
-        .reveal-left,
-        .reveal-right,
-        .reveal-scale {
-            opacity: 0;
-            transition: all 0.8s ease;
-        }
-
-        .reveal {
-            transform: translateY(50px);
-        }
-
-        .reveal-left {
-            transform: translateX(-50px);
-        }
-
-        .reveal-right {
-            transform: translateX(50px);
-        }
-
-        .reveal-scale {
-            transform: scale(0.8);
-        }
-
-        .reveal.active,
-        .reveal-left.active,
-        .reveal-right.active,
-        .reveal-scale.active {
-            opacity: 1;
-            transform: translate(0) scale(1);
-        }
-
-        #lightbox-modal {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            background: rgba(5, 5, 8, 0.95);
-            z-index: 10000;
-            display: none;
-            align-items: center;
-            justify-content: center;
-            backdrop-filter: blur(15px);
-            opacity: 0;
-            transition: 0.3s;
-        }
-
-        #lightbox-modal.active {
-            display: flex;
-            opacity: 1;
-        }
-
-        .lb-content {
-            position: relative;
-            max-width: 85vw;
-            max-height: 85vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        .lb-content img {
-            max-width: 100%;
-            max-height: 68vh;
-            border-radius: 12px;
-            border: 2px solid var(--primary);
-            box-shadow: 0 0 50px rgba(255, 140, 0, 0.3);
-            object-fit: contain;
-        }
-
-        .lb-caption {
-            margin-top: 18px;
-            text-align: center;
-        }
-
-        .lb-caption h4 {
-            font-family: 'Orbitron', sans-serif;
-            color: var(--primary);
-            font-size: 1.4rem;
-            margin-bottom: 6px;
-        }
-
-        .lb-caption p {
-            color: #ddd;
-            font-size: 0.95rem;
-            max-width: 600px;
-        }
-
-        .lb-close {
-            position: absolute;
-            top: -45px;
-            right: 0;
-            font-size: 2.5rem;
-            color: #fff;
-            cursor: pointer;
-        }
-
-        .lb-arrow {
-            position: absolute;
-            top: 45%;
-            transform: translateY(-50%);
-            background: rgba(255, 140, 0, 0.15);
-            border: 1px solid var(--primary);
-            color: white;
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.4rem;
-            cursor: pointer;
-        }
-
-        .lb-prev {
-            left: -70px;
-        }
-
-        .lb-next {
-            right: -70px;
-        }
-
-        .chat-btn {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            background: #FF8C00;
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            font-size: 25px;
-            z-index: 2001;
-            box-shadow: 0 0 20px rgba(255, 140, 0, 0.5);
-        }
-
-        #chat-window {
-            display: none;
-            position: fixed;
-            bottom: 100px;
-            right: 30px;
-            width: 300px;
-            height: 400px;
-            background: white;
-            color: black;
-            border-radius: 15px;
-            overflow: hidden;
-            z-index: 2000;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-        }
-
-        #chat-body {
-            height: 280px;
-            overflow-y: auto;
-            padding: 15px;
-            font-size: 14px;
-            background: #f9f9f9;
-        }
-
-        .direct-action-btn {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            padding: 14px 24px;
-            text-decoration: none;
-            border-radius: 50px;
-            font-family: 'Orbitron', sans-serif;
-            font-size: 0.85rem;
-            font-weight: bold;
-        }
-
-        @media (max-width: 1024px) {
-
-            .cards-container,
-            .category-grid,
-            .gallery-grid,
-            .stats {
-                grid-template-columns: repeat(2, 1fr);
-            }
-
-            .contact-grid,
-            .feedback-dual-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        @media (max-width: 768px) {
-            nav {
-                padding: 15px 30px;
-            }
-
-            .hero-title {
-                font-size: 2.5rem;
-            }
-
-            .section-title {
-                font-size: 2rem;
-            }
-
-            .showcase-3d-text {
-                font-size: 2.5rem;
-            }
-
-            .cards-container,
-            .category-grid,
-            .gallery-grid,
-            .stats {
-                grid-template-columns: 1fr;
-            }
-
-            .cube-container {
-                display: block;
-                right: 50%;
-                top: 50%;
-                transform: translate(50%, -50%) scale(0.65);
-                opacity: 0.28;
-                pointer-events: none;
-            }
-
-            .hamburger {
-                display: flex;
-                flex-direction: column;
-                gap: 5px;
-                z-index: 1002;
-            }
-
-            .hamburger span {
-                width: 26px;
-                height: 3px;
-                background: var(--primary);
-                border-radius: 2px;
-            }
-
-            .hamburger.active span:nth-child(1) {
-                transform: translateY(8px) rotate(45deg);
-                background: var(--secondary);
-            }
-
-            .hamburger.active span:nth-child(2) {
-                opacity: 0;
-            }
-
-            .hamburger.active span:nth-child(3) {
-                transform: translateY(-8px) rotate(-45deg);
-                background: var(--secondary);
-            }
-
-            .nav-links {
-                display: flex;
-                position: fixed;
-                top: 0;
-                right: -100%;
-                width: 65%;
-                height: 100vh;
-                background: rgba(5, 5, 8, 0.95);
-                backdrop-filter: blur(25px);
-                border-left: 1px solid rgba(255, 140, 0, 0.2);
-                flex-direction: column;
-                justify-content: center;
-                align-items: center;
-                gap: 35px;
-                transition: 0.4s;
-                z-index: 1001;
-            }
-
-            .nav-links.active {
-                right: 0;
-            }
-
-            .lb-prev {
-                left: 10px;
-            }
-
-            .lb-next {
-                right: 10px;
-            }
-
-            .lb-close {
-                top: 15px;
-                right: 20px;
-                position: fixed;
-            }
-        }
-
-        .loader {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: var(--darker);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 9999;
-            transition: 0.5s;
-        }
-
-        .loader.hidden {
-            opacity: 0;
-            visibility: hidden;
-        }
-
-        .loader-cube {
-            width: 60px;
-            height: 60px;
-            position: relative;
-            transform-style: preserve-3d;
-            animation: lRot 2s infinite ease-in-out;
-        }
-
-        .loader-cube div {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            border: 2px solid var(--primary);
-            box-shadow: 0 0 15px var(--primary);
-            opacity: 0.8;
-        }
-
-        .loader-cube div:nth-child(1) {
-            transform: translateZ(30px);
-        }
-
-        .loader-cube div:nth-child(2) {
-            transform: rotateY(90deg) translateZ(30px);
-        }
-
-        .loader-cube div:nth-child(3) {
-            transform: rotateY(180deg) translateZ(30px);
-        }
-
-        .loader-cube div:nth-child(4) {
-            transform: rotateY(-90deg) translateZ(30px);
-        }
-
-        .loader-cube div:nth-child(5) {
-            transform: rotateX(90deg) translateZ(30px);
-        }
-
-        .loader-cube div:nth-child(6) {
-            transform: rotateX(-90deg) translateZ(30px);
-        }
-
-        @keyframes lRot {
-            100% {
-                transform: rotateX(360deg) rotateY(360deg);
-            }
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Premium Curtains & Blinds | Keerti Enterprises</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* Smooth Scroll Effect */
+html {
+    scroll-behavior: smooth;
+}
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family: 'Poppins', Arial, sans-serif;
+}
+
+body{
+    background:#ffffff;
+    color:#333;
+    overflow-x: hidden;
+}
+
+header{
+    background: rgba(15, 35, 60, 0.95); 
+    backdrop-filter: blur(10px);
+    color:white;
+    padding:15px 8%;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+}
+.logo{
+    font-size:24px;
+    font-weight:700;
+    letter-spacing: 1.5px;
+}
+
+nav a{
+    color:white;
+    text-decoration:none;
+    margin-left:25px;
+    transition: all 0.3s ease;
+    display: inline-block;
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+}
+
+nav a:hover {
+    color: #d4af37;
+    transform: translateY(-2px);
+}
+
+/* HAMBURGER STYLES */
+.hamburger {
+    display: none;
+    flex-direction: column;
+    cursor: pointer;
+    gap: 6px;
+    z-index: 1001;
+}
+
+.hamburger span {
+    display: block;
+    width: 28px;
+    height: 3px;
+    background-color: white;
+    border-radius: 2px;
+    transition: all 0.3s ease;
+}
+
+.hero{
+    height:85vh;
+    background:linear-gradient(rgba(0,0,0,.55),rgba(0,0,0,.55)),
+    url('https://i.pinimg.com/736x/5e/ab/12/5eab12c9a2bb7dcc2dcf674e08568fc4.jpg'); 
+    background-size:cover;
+    background-position:center;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+    color:white;
+}
+
+.hero-content h1{
+    font-size:54px;
+    margin-bottom:15px;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+}
+
+.hero-content p{
+    font-size:22px;
+    margin-bottom:30px;
+    font-weight: 300;
+    color: #f0f0f0;
+}
+
+.btn{
+    display:inline-block;
+    padding:14px 30px;
+    background:#d4af37;
+    color:white;
+    text-decoration:none;
+    border-radius:6px;
+    margin:5px;
+    font-weight: 600;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.btn:hover {
+    background: #bfa032;
+    transform: translateY(-4px);
+    box-shadow: 0 8px 20px rgba(212, 175, 55, 0.4);
+}
+
+.btn:active {
+    transform: translateY(1px) scale(0.98);
+}
+
+/* BRAND TRUST STATS BAR */
+.stats-bar {
+    background: #0f233c;
+    color: white;
+    padding: 30px 8%;
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    gap: 20px;
+    text-align: center;
+    border-bottom: 3px solid #d4af37;
+}
+
+.stat-item h3 {
+    font-size: 32px;
+    color: #d4af37;
+    font-weight: 700;
+}
+
+.stat-item p {
+    font-size: 14px;
+    color: #d1d5db;
+    font-weight: 300;
+}
+
+section{
+    padding:80px 8%;
+}
+
+.section-title{
+    text-align:center;
+    margin-bottom:50px;
+    font-size:38px;
+    color:#0f233c; 
+    font-weight: 700;
+    position: relative;
+}
+
+.section-title::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 3px;
+    background: #d4af37;
+}
+
+.grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+    gap:30px;
+}
+
+.card{
+    background:white;
+    border-radius:12px;
+    overflow:hidden;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+    transition: all 0.3s ease;
+    border: 1px solid #f0f0f0;
+}
+
+.card:hover{
+    transform:translateY(-8px);
+    box-shadow: 0 15px 35px rgba(15, 35, 60, 0.12);
+}
+
+.card img{
+    width:100%;
+    height:240px;
+    object-fit:cover;
+    cursor: zoom-in;
+}
+
+.card h3{
+    padding:20px;
+    font-size: 18px;
+    color: #0f233c;
+    font-weight: 600;
+}
+
+.features{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+    gap:25px;
+    text-align:center;
+}
+
+.feature-box{
+    background:#ffffff;
+    padding:35px 25px;
+    border-radius:12px;
+    border: 1px solid #eaeaea;
+    font-weight: 600;
+    color: #0f233c;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.02);
+    transition: all 0.3s ease;
+}
+
+.feature-box:hover {
+    background: #0f233c;
+    color: white;
+    transform: translateY(-5px);
+    border-color: #0f233c;
+}
+
+.gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+    gap: 20px;
+}
+
+.gallery img{ 
+    height:260px;
+    width: 100%;
+    border-radius:12px;
+    object-fit: cover;
+    cursor: zoom-in;
+    transition: all 0.4s ease;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+}
+
+.gallery img:hover {
+    transform: scale(1.04);
+}
+
+/* AUTO SCROLLING REVIEWS TICKER */
+.reviews-ticker-wrapper {
+    width: 100%;
+    overflow: hidden;
+    background: #f8f9fa;
+    padding: 25px 0;
+    border-top: 1px solid #eee;
+    border-bottom: 1px solid #eee;
+}
+
+.review-card-inline {
+    display: inline-block;
+    background: white;
+    padding: 20px 30px;
+    margin: 0 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+    border: 1px solid #eee;
+}
+
+.review-card-inline p {
+    font-style: italic;
+    font-size: 14px;
+    color: #555;
+    display: inline;
+}
+
+.review-card-inline strong {
+    color: #0f233c;
+    margin-left: 15px;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+/* INTERACTIVE FAQ ACCORDION SECTION */
+.faq-container {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.faq-item {
+    border-bottom: 1px solid #eaeaea;
+    padding: 18px 0;
+}
+
+.faq-question {
+    font-size: 17px;
+    font-weight: 600;
+    color: #0f233c;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    user-select: none;
+}
+
+.faq-answer {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease-out;
+    color: #666;
+    font-size: 15px;
+    line-height: 1.6;
+}
+
+.faq-answer p {
+    padding-top: 12px;
+}
+
+.faq-icon {
+    font-size: 20px;
+    transition: transform 0.3s ease;
+    color: #d4af37;
+}
+
+.faq-item.active .faq-icon {
+    transform: rotate(45deg);
+}
+
+/* MODERN PLAYSTORE-STYLE STAR RATING CONTAINER */
+.feedback-section {
+    background: #fcfcfc;
+    border-top: 1px solid #eaeaea;
+}
+
+.form-container {
+    max-width: 650px;
+    margin: 0 auto;
+    background: white;
+    padding: 45px;
+    border-radius: 14px;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.04);
+    border: 1px solid #eee;
+    text-align: center;
+}
+
+.star-rating-wrapper {
+    display: flex;
+    justify-content: center;
+    flex-direction: row-reverse;
+    gap: 12px;
+    margin: 25px 0;
+}
+
+.star-rating-wrapper input {
+    display: none;
+}
+
+.star-rating-wrapper label {
+    font-size: 46px;
+    color: #ddd;
+    cursor: pointer;
+    transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.star-rating-wrapper label:hover,
+.star-rating-wrapper label:hover ~ label,
+.star-rating-wrapper input:checked ~ label {
+    color: #d4af37;
+}
+
+.star-rating-wrapper label:active {
+    transform: scale(0.9);
+}
+
+.rating-status-text {
+    font-size: 16px;
+    font-weight: 500;
+    color: #0f233c;
+    margin-top: 15px;
+    min-height: 24px;
+}
+
+/* Added Contact Grid layout */
+.contact {
+    background: linear-gradient(135deg, #0f233c, #1d3557); 
+    border: 1px solid rgba(212, 175, 55, 0.2);
+    color: white;
+    border-radius: 12px;
+    padding: 60px 8%;
+}
+
+.contact-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 50px;
+    align-items: center;
+    margin-top: 40px;
+}
+
+.contact-links {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.contact-link {
+    color: #e5e5e5;
+    text-decoration: none;
+    font-size: 16px;
+    padding: 15px 25px;
+    border-radius: 6px;
+    background: rgba(255,255,255,0.02);
+    border: 1px solid rgba(255,255,255,0.05);
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 15px;
+    width: 100%;
+}
+
+.contact-link:hover {
+    background: rgba(212, 175, 55, 0.08);
+    border-color: #d4af37;
+    color: #d4af37;
+    transform: translateX(5px);
+}
+
+/* Lead Form Styling inside Contact */
+.lead-form {
+    background: white;
+    padding: 35px;
+    border-radius: 12px;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+}
+
+.lead-form input, .lead-form textarea {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    outline: none;
+    font-family: inherit;
+}
+.lead-form input:focus, .lead-form textarea:focus {
+    border-color: #d4af37;
+}
+
+footer{
+    background: #0f233c; 
+    color:white;
+    text-align:center;
+    padding: 30px;
+    font-size: 14px;
+    border-top: 1px solid rgba(255,255,255,0.05);
+}
+
+/* IMAGE LIGHTBOX POPUP SCREEN */
+.lightbox {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(10, 25, 47, 0.95);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 3000;
+}
+
+.lightbox img {
+    max-width: 90%;
+    max-height: 85vh;
+    border-radius: 8px;
+    box-shadow: 0 0 30px rgba(255,255,255,0.1);
+    transform: scale(0.9);
+    transition: transform 0.3s ease;
+}
+
+.lightbox.active img {
+    transform: scale(1);
+}
+
+.lightbox-close {
+    position: absolute;
+    top: 20px;
+    right: 35px;
+    color: white;
+    font-size: 40px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+@media(max-width:768px){
+    .hero-content h1{ font-size:36px; }
+    .form-container { padding: 25px; }
+    .stats-bar { padding: 20px; }
+    .stat-item { flex: 1 1 40%; }
+    
+    .contact-layout { grid-template-columns: 1fr; } /* Stack on mobile */
+
+    /* RESPONSIVE HAMBURGER & NAV CONFIGURATION */
+    .hamburger { display: flex; }
+    nav {
+        display: none; flex-direction: column; position: absolute;
+        top: 100%; left: 0; width: 100%;
+        background: rgba(15, 35, 60, 0.98); padding: 20px 0;
+        box-shadow: 0 10px 20px rgba(0,0,0,0.1); border-top: 1px solid rgba(255,255,255,0.05);
+    }
+    nav.active { display: flex; }
+    nav a { margin: 12px 0; width: 100%; text-align: center; font-size: 16px; padding: 5px 0; }
+    .hamburger.active span:nth-child(1) { transform: rotate(45deg) translate(6px, 6px); }
+    .hamburger.active span:nth-child(2) { opacity: 0; }
+    .hamburger.active span:nth-child(3) { transform: rotate(-45deg) translate(6px, -7px); }
+}
+
+/* --- AI CHATBOT STYLES --- */
+.chatbot-launcher {
+    position: fixed; bottom: 30px; right: 30px; width: 60px; height: 60px;
+    background: #0f233c; border: 2px solid #d4af37; color: white; border-radius: 50%;
+    display: flex; justify-content: center; align-items: center; font-size: 28px;
+    cursor: pointer; box-shadow: 0 4px 15px rgba(0,0,0,0.2); z-index: 2000;
+    transition: transform 0.3s ease, background 0.3s ease;
+}
+.chatbot-launcher:hover { transform: scale(1.1); background: #1d3557; }
+.chatbot-container {
+    position: fixed; bottom: 100px; right: 30px; width: 350px; height: 450px;
+    background: white; border-radius: 12px; box-shadow: 0 5px 25px rgba(0,0,0,0.15);
+    display: none; flex-direction: column; overflow: hidden; z-index: 2000; border: 1px solid #e5e5e5;
+}
+.chatbot-header {
+    background: linear-gradient(135deg, #0f233c, #1d3557); color: white; padding: 15px;
+    font-weight: bold; display: flex; justify-content: space-between; align-items: center;
+}
+.chatbot-close { cursor: pointer; font-size: 20px; opacity: 0.8; }
+.chatbot-close:hover { opacity: 1; }
+.chatbot-messages { flex: 1; padding: 15px; overflow-y: auto; background: #f9f9f9; display: flex; flex-direction: column; gap: 10px; }
+.chat-msg { padding: 10px 14px; border-radius: 8px; max-width: 80%; font-size: 14px; line-height: 1.4; }
+.chat-msg.bot { background: #eaeaea; color: #333; align-self: flex-start; }
+.chat-msg.user { background: #0f233c; color: white; align-self: flex-end; }
+.chatbot-input-area { display: flex; border-top: 1px solid #eee; padding: 10px; background: white; }
+.chatbot-input-area input { flex: 1; border: 1px solid #ddd; padding: 8px 12px; border-radius: 20px; outline: none; }
+.chatbot-input-area button { background: #d4af37; color: white; border: none; padding: 8px 15px; margin-left: 8px; border-radius: 20px; cursor: pointer; font-weight: bold; }
+.chatbot-input-area button:hover { background: #bfa032; }
+</style>
 </head>
 
 <body>
 
-    <div class="loader" id="preloader">
-        <div class="loader-cube">
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
+<header>
+    <div class="logo">KEERTI ENTERPRISES</div>
+    <div class="hamburger" id="hamburgerMenu" onclick="toggleMobileMenu()">
+        <span></span><span></span><span></span>
+    </div>
+    <nav id="navMenu">
+        <a href="#home">Home</a>
+        <a href="#products">Products</a>
+        <a href="#gallery">Gallery</a>
+        <a href="#faq">FAQs</a>
+        <a href="#feedback">Rating & Reviews</a>
+    </nav>
+</header>
+
+<section class="hero" id="home">
+    <div class="hero-content">
+        <h1>Exterior & Home Decor Solutions</h1>
+        <p>Custom Designs • Perfect Fitting • Affordable Prices</p>
+        <a href="https://wa.me/917275612150?text=Hi,%20I%20want%20to%20know%20more%20about%20your%20curtains%20and%20blinds." target="_blank" class="btn" style="background:#25D366; color:#fff; box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3);">WhatsApp Us</a>
+        <a href="tel:+917275612150" class="btn">Call Us Now</a>
+    </div>
+</section>
+
+<div class="stats-bar">
+    <div class="stat-item">
+        <h3>500+</h3><p>Homes Transformed</p>
+    </div>
+    <div class="stat-item">
+        <h3>100%</h3><p>Custom Measurements</p>
+    </div>
+    <div class="stat-item">
+        <h3>Free</h3><p>Home Inspection Visit</p>
+    </div>
+    <div class="stat-item">
+        <h3>Expert</h3><p>Installation Crews</p>
+    </div>
+</div>
+
+<section id="products">
+    <h2 class="section-title">Our Categories</h2>
+    <div class="grid">
+        <div class="card">
+            <img src="https://images.unsplash.com/photo-1484154218962-a197022b5858?w=800">
+            <h3>Designer Curtains</h3>
+        </div>
+        <div class="card">
+            <img src="https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?w=800">
+            <h3>Roller Blinds</h3>
+        </div>
+        <div class="card">
+            <img src="https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?w=800">
+            <h3>Zebra Blinds</h3>
+        </div>
+        <div class="card">
+            <img src="https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?w=800">
+            <h3>Venetian Blinds</h3>
         </div>
     </div>
+</section>
 
-    <nav>
-        <div class="logo"><span class="highlight">Keerti</span> <span class="sub">Enterprises</span></div>
-        <ul class="nav-links">
-            <li><a href="#hero">Home</a></li>
-            <li><a href="#features">Why Us</a></li>
-            <li><a href="#products">Products</a></li>
-            <li><a href="#gallery">Gallery</a></li>
-            <li><a href="#faq">FAQ</a></li>
-            <li><a href="#contact">Contact</a></li>
-        </ul>
-        <div class="hamburger"><span></span><span></span><span></span></div>
-    </nav>
+<section>
+    <h2 class="section-title">Why Choose Us</h2>
+    <div class="features">
+        <div class="feature-box">✅ Custom Measurements</div>
+        <div class="feature-box">✅ Premium Quality</div>
+        <div class="feature-box">✅ Free Home Visit</div>
+        <div class="feature-box">✅ Expert Installation</div>
+        <div class="feature-box">✅ Best Prices</div>
+    </div>
+</section>
 
-    <section class="hero" id="hero">
-        <div class="hero-bg-grid"></div>
-        <div class="particles" id="particle-container"></div>
-        <div class="hero-content">
-            <p class="hero-subtitle">EXTERIOR & HOME DECOR SOLUTIONS</p>
-            <h1 class="hero-title">Keerti <span>Enterprises</span></h1>
-            <p class="hero-desc">Custom Designs • Perfect Fitting • Affordable Prices. Experience fluid transitions,
-                high-impact neon visual elements, and deep spatial designs.</p>
-            <a href="#products" class="hero-btn">Explore Now</a>
-        </div>
-        <div class="cube-container">
-            <div class="cube">
-                <div class="cube-face">SSG</div>
-                <div class="cube-face">SSG</div>
-                <div class="cube-face">SSG</div>
-                <div class="cube-face">SSG</div>
-                <div class="cube-face">SSG</div>
-                <div class="cube-face">SSG</div>
-            </div>
-        </div>
-    </section>
+<section>
+    <h2 class="section-title">Featured Products</h2>
+    <div class="grid">
+        <div class="card"><img src="https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?w=800"><h3>Luxury Curtains</h3></div>
+        <div class="card"><img src="https://images.unsplash.com/photo-1484154218962-a197022b5858?w=800"><h3>Blackout Curtains</h3></div>
+        <div class="card"><img src="https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?w=800"><h3>Roller Blinds</h3></div>
+    </div>
+</section>
 
-    <section class="features" id="features">
-        <div class="section-header reveal">
-            <p class="section-tag">Core Architecture</p>
-            <h2 class="section-title">Why Choose <span>Us</span></h2>
-        </div>
-        <div class="cards-container">
-            <div class="card-3d reveal-left">
-                <div class="card-inner">
-                    <div class="card-icon">📐</div>
-                    <div class="card-content">
-                        <h3>Custom Size</h3>
-                        <p>100% accurate custom measurements perfectly tailored to match your unique window layouts.</p>
-                    </div>
-                    <div class="card-number">01</div>
-                </div>
-            </div>
-            <div class="card-3d reveal">
-                <div class="card-inner">
-                    <div class="card-icon">💎</div>
-                    <div class="card-content">
-                        <h3>Premium Quality</h3>
-                        <p>Highest grade blackout fabrics and heavy durability wooden controllers built to last for
-                            years.</p>
-                    </div>
-                    <div class="card-number">02</div>
-                </div>
-            </div>
-            <div class="card-3d reveal-right">
-                <div class="card-inner">
-                    <div class="card-icon">🏠</div>
-                    <div class="card-content">
-                        <h3>Free Home Visit</h3>
-                        <p>Complimentary home inspection and catalog presentation directly at your doorstep anywhere in
-                            Basti.</p>
-                    </div>
-                    <div class="card-number">03</div>
-                </div>
-            </div>
-        </div>
-    </section>
+<section id="gallery">
+    <h2 class="section-title">Gallery</h2>
+    <div class="grid gallery">
+        <img src="https://i.pinimg.com/736x/ce/b4/f4/ceb4f41c74adb4026239359c16a43777.jpg">
+        <img src="https://i.pinimg.com/736x/e4/5c/bf/e45cbff31a9639008bec84c6d62e9d3d.jpg">
+        <img src="https://i.pinimg.com/736x/e2/34/1c/e2341cba7904f6bbe56d22af6b1d72c1.jpg">
+        <img src="https://i.pinimg.com/736x/74/e4/95/74e495c71a8bf7ada685ec3a37abdb38.jpg">
+        <img src="https://i.pinimg.com/736x/ea/04/a2/ea04a2267af6ca8232fbe2b845fc0d20.jpg">
+    </div>
+</section>
 
-    <section class="categories-section" id="products">
-        <div class="section-header reveal">
-            <p class="section-tag">Our Collection</p>
-            <h2 class="section-title">Product <span>Categories</span></h2>
-        </div>
-        <div class="category-grid">
-            <div class="category-card reveal-scale"><img
-                    src="https://images.unsplash.com/photo-1484154218962-a197022b5858?w=800">
-                <h3>Designer Curtains</h3>
+<section id="testimonials" style="padding: 40px 0;">
+    <h2 class="section-title">What Our Customers Say</h2>
+    <div class="reviews-ticker-wrapper">
+        <marquee behavior="scroll" direction="left" scrollamount="6" onmouseover="this.stop();" onmouseout="this.start();" id="reviewsMarquee">
+            <div class="review-card-inline">
+                <p>"Keerti Enterprises changed the entire look of my living room! Flawless fitting."</p>
+                <strong>- Ramesh Basti</strong>
             </div>
-            <div class="category-card reveal-scale"><img
-                    src="https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?w=800">
-                <h3>Roller Blinds</h3>
+            <div class="review-card-inline">
+                <p>"Highly recommend their Zebra blinds. Excellent built quality and smooth setup."</p>
+                <strong>- Premium Customer</strong>
             </div>
-            <div class="category-card reveal-scale"><img
-                    src="https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?w=800">
-                <h3>Zebra Blinds</h3>
+            <div class="review-card-inline">
+                <p>"Great experience. The measurements are exact and the material looks highly premium."</p>
+                <strong>- Verma Ji</strong>
             </div>
-            <div class="category-card reveal-scale"><img
-                    src="https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?w=800">
-                <h3>Venetian Blinds</h3>
-            </div>
-        </div>
-    </section>
+        </marquee>
+    </div>
+</section>
 
-    <section class="gallery" id="gallery">
-        <div class="section-header reveal">
-            <p class="section-tag">Visual Array</p>
-            <h2 class="section-title">The 3D <span>Gallery</span></h2>
+<section id="faq" style="background: #fafafa;">
+    <h2 class="section-title">Frequently Asked Questions</h2>
+    <div class="faq-container">
+        <div class="faq-item">
+            <div class="faq-question" onclick="toggleFaq(this)">Do you provide free home measurement visits? <span class="faq-icon">+</span></div>
+            <div class="faq-answer"><p>Yes, absolutely! We offer a 100% Free Home Visit across Basti for precise layouts, measurements, and catalog presentations.</p></div>
         </div>
-        <div class="gallery-grid">
-            <div class="flip-card reveal-scale">
-                <div class="flip-card-inner">
-                    <div class="flip-card-front"><img
-                            src="https://i.pinimg.com/736x/ce/b4/f4/ceb4f41c74adb4026239359c16a43777.jpg">
-                        <div class="overlay">
-                            <h4>Royal Living</h4>
-                        </div>
-                    </div>
-                    <div class="flip-card-back">
-                        <h4>Royal Living</h4>
-                        <p>Designer sheer and opaque drapes engineered to give your drawing room a majestic vibe.</p>
-                    </div>
-                </div>
-            </div>
-            <div class="flip-card reveal-scale">
-                <div class="flip-card-inner">
-                    <div class="flip-card-front"><img
-                            src="https://i.pinimg.com/736x/e4/5c/bf/e45cbff31a9639008bec84c6d62e9d3d.jpg">
-                        <div class="overlay">
-                            <h4>Modern Blinds</h4>
-                        </div>
-                    </div>
-                    <div class="flip-card-back">
-                        <h4>Modern Blinds</h4>
-                        <p>Ultra-dense double-layered zebra blinds perfectly controlling incoming natural sunlight.</p>
-                    </div>
-                </div>
-            </div>
-            <div class="flip-card reveal-scale">
-                <div class="flip-card-inner">
-                    <div class="flip-card-front"><img
-                            src="https://i.pinimg.com/736x/e2/34/1c/e2341cba7904f6bbe56d22af6b1d72c1.jpg">
-                        <div class="overlay">
-                            <h4>Luxury Blackout</h4>
-                        </div>
-                    </div>
-                    <div class="flip-card-back">
-                        <h4>Luxury Blackout</h4>
-                        <p>Heavy texture fabric designs providing complete privacy and thermal insulation for bedrooms.
-                        </p>
-                    </div>
-                </div>
-            </div>
-            <div class="flip-card reveal-scale">
-                <div class="flip-card-inner">
-                    <div class="flip-card-front"><img
-                            src="https://i.pinimg.com/736x/74/e4/95/74e495c71a8bf7ada685ec3a37abdb38.jpg">
-                        <div class="overlay">
-                            <h4>Wooden Venetian</h4>
-                        </div>
-                    </div>
-                    <div class="flip-card-back">
-                        <h4>Wooden Venetian</h4>
-                        <p>Premium rich wooden texture finishes crafted to deliver executive elegance for corporate
-                            suites.</p>
-                    </div>
-                </div>
-            </div>
-            <div class="flip-card reveal-scale">
-                <div class="flip-card-inner">
-                    <div class="flip-card-front"><img
-                            src="https://i.pinimg.com/736x/ea/04/a2/ea04a2267af6ca8232fbe2b845fc0d20.jpg">
-                        <div class="overlay">
-                            <h4>Velvet Drape</h4>
-                        </div>
-                    </div>
-                    <div class="flip-card-back">
-                        <h4>Velvet Drape</h4>
-                        <p>Ultra-soft heavy royal velvet fabrics designed specifically for master bedroom soundproofing.
-                        </p>
-                    </div>
-                </div>
-            </div>
+        <div class="faq-item">
+            <div class="faq-question" onclick="toggleFaq(this)">What types of blinds do you customize? <span class="faq-icon">+</span></div>
+            <div class="faq-answer"><p>We specialize in Roller Blinds, Zebra Blinds, Venetian Blinds, and Luxury Wooden Blinds with heavy durability controllers.</p></div>
         </div>
-    </section>
+        <div class="faq-item">
+            <div class="faq-question" onclick="toggleFaq(this)">How long does it take for installation? <span class="faq-icon">+</span></div>
+            <div class="faq-answer"><p>Once the design fabric is confirmed, standard custom order production and setup are completed within 3 to 5 business days.</p></div>
+        </div>
+    </div>
+</section>
 
-    <section class="showcase">
-        <div class="showcase-bg">KEERTI ENTERPRISES</div>
-        <div class="showcase-content reveal">
-            <div class="showcase-3d-text"><span>BASTI'S FINEST</span></div>
-            <p class="showcase-desc">We combine raw execution metrics with bespoke interior styling to bring unmatched
-                luxury window treatments and custom blind architectures directly into your living spaces.</p>
-            <div class="pyramid-container">
-                <div class="pyramid">
-                    <div class="pyramid-face"></div>
-                    <div class="pyramid-face"></div>
-                    <div class="pyramid-face"></div>
-                    <div class="pyramid-face"></div>
-                </div>
-            </div>
+<section class="feedback-section" id="feedback">
+    <h2 class="section-title">Rate Our Service</h2>
+    <div class="form-container">
+        <p style="color: #666; font-size: 15px;">Tap the stars to rate your experience with Keerti Enterprises</p>
+        <div class="star-rating-wrapper">
+            <input type="radio" id="star5" name="rating" value="5" onclick="submitStarRating(5)"><label for="star5">★</label>
+            <input type="radio" id="star4" name="rating" value="4" onclick="submitStarRating(4)"><label for="star4">★</label>
+            <input type="radio" id="star3" name="rating" value="3" onclick="submitStarRating(3)"><label for="star3">★</label>
+            <input type="radio" id="star2" name="rating" value="2" onclick="submitStarRating(2)"><label for="star2">★</label>
+            <input type="radio" id="star1" name="rating" value="1" onclick="submitStarRating(1)"><label for="star1">★</label>
         </div>
-    </section>
+        <div class="rating-status-text" id="ratingStatusText"></div>
 
-    <section class="stats" id="stats">
-        <div class="stat-card reveal-left">
-            <div class="stat-number">500+</div>
-            <div class="stat-label">Homes Transformed</div>
-        </div>
-        <div class="stat-card reveal-scale">
-            <div class="stat-number">100%</div>
-            <div class="stat-label">Custom Measurements</div>
-        </div>
-        <div class="stat-card reveal-scale">
-            <div class="stat-number">FREE</div>
-            <div class="stat-label">Home Inspection Visit</div>
-        </div>
-        <div class="stat-card reveal-right">
-            <div class="stat-number">EXPERT</div>
-            <div class="stat-label">Installation Crews</div>
-        </div>
-    </section>
-
-    <section class="faq-section" id="faq">
-        <div class="section-header reveal">
-            <p class="section-tag">Got Questions?</p>
-            <h2 class="section-title">Frequently Asked <span>FAQs</span></h2>
-        </div>
-        <div class="faq-container reveal">
-            <div class="faq-item">
-                <div class="faq-question" onclick="toggleFaq(this)">Do you provide free home measurement visits? <span
-                        class="faq-icon">+</span></div>
-                <div class="faq-answer">
-                    <p>Yes, absolutely! We offer a 100% Free Home Visit across Basti for precise layouts, measurements,
-                        and catalog presentations.</p>
-                </div>
-            </div>
-            <div class="faq-item">
-                <div class="faq-question" onclick="toggleFaq(this)">What types of blinds do you customize? <span
-                        class="faq-icon">+</span></div>
-                <div class="faq-answer">
-                    <p>We specialize in Roller Blinds, Zebra Blinds, Venetian Blinds, and Luxury Wooden Blinds with
-                        heavy durability controllers.</p>
-                </div>
-            </div>
-            <div class="faq-item">
-                <div class="faq-question" onclick="toggleFaq(this)">How long does it take for installation? <span
-                        class="faq-icon">+</span></div>
-                <div class="faq-answer">
-                    <p>Once the design fabric is confirmed, standard custom order production and setup are completed
-                        within 3 to 5 business days.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section class="testimonials" id="feedback">
-        <div class="section-header reveal">
-            <p class="section-tag">Global Consensus</p>
-            <h2 class="section-title">User <span>Feedback</span></h2>
-        </div>
-
-        <div class="feedback-dual-grid reveal">
-            <div>
-                <div class="prism-container">
-                    <div class="prism" id="feedback-prism">
-                        <div class="prism-face">
-                            <p class="prism-text">"Keerti Enterprises changed the entire look of my living room!
-                                Flawless fitting and great material."</p>
-                            <p class="prism-author">- Ramesh Basti</p>
-                        </div>
-                        <div class="prism-face">
-                            <p class="prism-text">"Highly recommend their Zebra blinds. Excellent built quality and
-                                smooth setup by the team."</p>
-                            <p class="prism-author">- Verma Ji</p>
-                        </div>
-                        <div class="prism-face">
-                            <p class="prism-text">"Great experience. The measurements are exact and the material looks
-                                highly premium."</p>
-                            <p class="prism-author">- Premium Customer</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="live-review-card">
-                <h3 style="font-family:'Orbitron',sans-serif; font-size:1.3rem; margin-bottom:6px; color:#FF8C00;">Add
-                    Live Review</h3>
-                <p style="font-size:0.85rem; color:#aaa; margin-bottom:22px;">Type below to inject your feedback into
-                    the 3D Prism instantly!</p>
-
-                <form onsubmit="handleLiveReviewSubmit(event)">
-                    <input type="text" id="revAuthor" placeholder="Your Name (e.g. Amit Basti)" required>
-                    <textarea id="revContent" placeholder="Write your experience with our blinds..." required rows="3"
-                        style="resize:none;"></textarea>
-                    <button type="submit" class="submit-btn" style="padding:15px; font-size:0.9rem;">🚀 Broadcast Live
-                        Review</button>
-                </form>
-            </div>
-        </div>
-    </section>
-
-    <section class="contact" id="contact">
-        <div class="contact-grid">
-            <div class="contact-info reveal-left">
-                <h3>Get In <span>Touch</span></h3>
-                <p style="color: rgba(255,255,255,0.6); margin-bottom: 40px; line-height: 1.8;">Ready to transform your
-                    home interior? Reach out to schedule your free home measurement visit immediately.</p>
-                <a href="https://maps.app.goo.gl/AyAGJUp8TiFc6qGK7" target="_blank" class="contact-item">
-                    <div class="contact-icon">📍</div>
-                    <div>
-                        <h4>Our Location</h4>
-                        <p>Companybag chauraha, near Press-club, BASTI</p>
-                    </div>
-                </a>
-                <a href="tel:+917275612150" class="contact-item">
-                    <div class="contact-icon">📞</div>
-                    <div>
-                        <h4>Contact Number</h4>
-                        <p>+91 72756 12150</p>
-                    </div>
-                </a>
-                <a href="mailto:keertienterprises151@gmail.com" class="contact-item">
-                    <div class="contact-icon">✉️</div>
-                    <div>
-                        <h4>Email Protocol</h4>
-                        <p>keertienterprises151@gmail.com</p>
-                    </div>
-                </a>
-
-                <div style="margin-top: 35px; display: flex; gap: 15px; flex-wrap: wrap;">
-                    <a href="tel:+917275612150" class="direct-action-btn"
-                        style="background: #FF8C00; color: #fff; box-shadow: 0 4px 20px rgba(255,140,0,0.3);">📞 Call
-                        Desk Direct</a>
-                    <a href="https://wa.me/917275612150?text=Hello%20Keerti%20Enterprises,%20I%20am%20interested%20in%20your%20Curtains%20and%20Blinds."
-                        target="_blank" class="direct-action-btn"
-                        style="background: #25D366; color: #fff; box-shadow: 0 4px 20px rgba(37,211,102,0.3);">💬 Chat
-                        on WhatsApp</a>
-                </div>
-            </div>
-
-            <form class="contact-form reveal-right" onsubmit="sendLeadToOwner(event)">
-                <div class="form-group"><label>Your Name</label><input type="text" id="custName"
-                        placeholder="Enter your full name" required></div>
-                <div class="form-group"><label>Phone Number</label><input type="tel" id="custPhone"
-                        placeholder="+91 XXXXX XXXXX" required></div>
-                <div class="form-group"><label>Gmail Address</label><input type="email" id="custEmail"
-                        placeholder="name@gmail.com" required></div>
-                <div class="form-group"><label>Your Requirements</label><textarea id="custMsg"
-                        placeholder="Tell us about window sizes..." required></textarea></div>
-                <button type="submit" class="submit-btn" id="formSubBtn">Request Free Visit</button>
+        <div style="margin-top: 30px; border-top: 1px solid #eee; padding-top: 25px; text-align: left;">
+            <h4 style="color: #0f233c; margin-bottom: 10px;">Leave a Public Review</h4>
+            <form onsubmit="handleLiveReviewSubmit(event)">
+                <input type="text" id="revAuthor" placeholder="Your Name (e.g. Amit Basti)" required style="width: 100%; padding: 12px; margin-bottom: 15px; border: 1px solid #ddd; border-radius: 6px;">
+                <textarea id="revContent" placeholder="Write your experience..." required rows="3" style="width: 100%; padding: 12px; margin-bottom: 15px; border: 1px solid #ddd; border-radius: 6px; resize: none;"></textarea>
+                <button type="submit" class="btn" style="width: 100%; text-align: center;">🚀 Broadcast Review Live</button>
             </form>
         </div>
-    </section>
-
-    <footer>
-        <div class="footer-logo"><span style="color: #FF8C00;">Keerti</span> <span
-                style="color: #fff; font-weight: 300;">Enterprises</span></div>
-        <div class="footer-links"><a href="#hero">Home</a><a href="#features">Why Us</a><a
-                href="#products">Products</a><a href="#gallery">Gallery</a></div>
-        <p class="footer-copy">© 2026 Keerti Enterprises. All Rights Reserved.</p>
-    </footer>
-
-    <div id="lightbox-modal">
-        <div class="lb-content">
-            <span class="lb-close" onclick="closeLightbox()">×</span>
-            <div class="lb-arrow lb-prev" onclick="changeSlide(-1)">❮</div>
-            <img id="lb-image" src="" alt="Zoom">
-            <div class="lb-arrow lb-next" onclick="changeSlide(1)">❯</div>
-            <div class="lb-caption">
-                <h4 id="lb-title"></h4>
-                <p id="lb-desc"></p>
-            </div>
-        </div>
     </div>
+</section>
 
-    <div class="chat-btn" onclick="document.getElementById('chat-window').style.display='block'">🤖</div>
-    <div id="chat-window">
-        <div
-            style="background:#0a0a0f; color:white; padding:12px; font-family:'Orbitron',sans-serif; font-size:0.9rem; text-align:center; border-bottom:1px solid #FF8C00;">
-            Keerti Smart AI <span style="float:right; cursor:pointer;"
-                onclick="document.getElementById('chat-window').style.display='none'">×</span></div>
-        <div id="chat-body">
-            <p style="margin-bottom:10px; color:#333;">🙏 Namaste! Main Keerti Enterprises ka AI assistant hun. Kahiye,
-                kya madad karun?</p>
+<section class="contact" id="contact">
+    <h2 class="section-title" style="color: white;">Contact Us</h2>
+    <div class="contact-layout">
+        
+        <div class="contact-links">
+            <p style="color: #ccc; margin-bottom: 15px; font-size: 16px;">Ready to transform your home? Reach out for a free home measurement visit.</p>
+            <a class="contact-link" href="https://maps.app.goo.gl/poe3qzGWjSoQBX2S8?g_st=ac" target="_blank">
+                📍 Companybag chauraha, near Press-club, BASTI
+            </a>
+            <a class="contact-link" href="tel:+917275612150">
+                📞 +91 72756 12150
+            </a>
+            <a class="contact-link" href="mailto:keertienterprises151@gmail.com">
+                📧 keertienterprises151@gmail.com
+            </a>
         </div>
-        <div style="display:flex; padding:8px; background:#fff; border-top:1px solid #ccc;"><input type="text"
-                id="chat-input" placeholder="Puchhein..."
-                style="flex:1; padding:8px; border:1px solid #ccc; border-radius:4px; outline:none; color:#000;"
-                onkeypress="if(event.key === 'Enter') aiResponse()"><button onclick="aiResponse()"
-                style="padding:8px 15px; background:#FF8C00; border:none; color:white; border-radius:4px; margin-left:6px; font-weight:bold; cursor:pointer;">Send</button>
-        </div>
+
+        <form class="lead-form" onsubmit="sendLeadToOwner(event)">
+            <h3 style="color: #0f233c; margin-bottom: 20px;">Request Free Visit</h3>
+            <input type="text" id="custName" placeholder="Your Full Name" required>
+            <input type="tel" id="custPhone" placeholder="Phone Number (+91...)" required>
+            <input type="email" id="custEmail" placeholder="Gmail Address" required>
+            <textarea id="custMsg" placeholder="Tell us about window sizes or requirements..." required rows="4"></textarea>
+            <button type="submit" class="btn" id="formSubBtn" style="width: 100%; text-align: center;">Submit & Connect</button>
+        </form>
+
     </div>
+</section>
 
-    <script>
-        window.addEventListener('load', () => { document.getElementById('preloader').classList.add('hidden'); });
+<footer>
+    © 2026 KEERTI ENTERPRISES | All Rights Reserved
+</footer>
 
-        const particleContainer = document.getElementById('particle-container');
-        for (let i = 0; i < 40; i++) { const particle = document.createElement('div'); particle.classList.add('particle'); particle.style.left = `${Math.random() * 100}%`; particle.style.animationDelay = `${Math.random() * 10}s`; particle.style.animationDuration = `${6 + Math.random() * 8}s`; particleContainer.appendChild(particle); }
+<div class="lightbox" id="imageLightbox">
+    <span class="lightbox-close" onclick="closeLightbox()">×</span>
+    <img id="lightboxImg" src="" alt="Enlarged view">
+</div>
 
-        function revealElements() { const reveals = document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .reveal-scale'); const windowHeight = window.innerHeight; reveals.forEach(el => { if (el.getBoundingClientRect().top < windowHeight - 100) el.classList.add('active'); }); }
-        window.addEventListener('scroll', revealElements); revealElements();
+<div class="chatbot-launcher" id="chatLauncher" onclick="toggleChat()">💬</div>
+<div class="chatbot-container" id="chatContainer">
+    <div class="chatbot-header">
+        <span>Keerti AI Assistant</span>
+        <span class="chatbot-close" onclick="toggleChat()">×</span>
+    </div>
+    <div class="chatbot-messages" id="chatMessages">
+        <div class="chat-msg bot">🙏 Namaste! Main Keerti Enterprises ka AI assistant hun. Kahiye, aaj main aapki kya madad kar sakta hun?</div>
+    </div>
+    <div class="chatbot-input-area">
+        <input type="text" id="chatInput" placeholder="Puchhein..." onkeypress="handleKeyPress(event)">
+        <button onclick="sendChatMessage()">Send</button>
+    </div>
+</div>
 
-        function toggleFaq(el) { const faqItem = el.parentElement; const answer = faqItem.querySelector('.faq-answer'); const icon = el.querySelector('.faq-icon'); if (faqItem.classList.contains('active')) { faqItem.classList.remove('active'); answer.style.maxHeight = null; icon.innerText = '+'; } else { faqItem.classList.add('active'); answer.style.maxHeight = answer.scrollHeight + "px"; icon.innerText = '×'; } }
+<script>
+// HAMBURGER CONTROLLER ENGINE
+const hamburger = document.getElementById('hamburgerMenu');
+const navMenu = document.getElementById('navMenu');
 
-        const hmb = document.querySelector('.hamburger'); const navL = document.querySelector('.nav-links'); hmb.addEventListener('click', () => { hmb.classList.toggle('active'); navL.classList.toggle('active'); }); document.querySelectorAll('.nav-links a').forEach(l => l.addEventListener('click', () => { hmb.classList.remove('active'); navL.classList.remove('active'); }));
+function toggleMobileMenu() {
+    hamburger.classList.toggle('active');
+    navMenu.classList.toggle('active');
+}
 
-        /* GALLERY SLIDER */
-        let galleryCollection = []; let activeLbIndex = 0;
-        window.addEventListener('DOMContentLoaded', () => {
-            document.querySelectorAll('.gallery-grid .flip-card').forEach((card, idx) => {
-                const img = card.querySelector('.flip-card-front img'); const title = card.querySelector('.flip-card-back h4'); const desc = card.querySelector('.flip-card-back p');
-                galleryCollection.push({ src: img ? img.src : '', title: title ? title.innerText : '', desc: desc ? desc.innerText : '' });
-                card.addEventListener('click', () => openLightbox(idx));
-            });
+document.querySelectorAll('nav a').forEach(link => {
+    link.addEventListener('click', () => {
+        hamburger.classList.remove('active');
+        navMenu.classList.remove('active');
+    });
+});
+
+// LIGHTBOX ENGINE
+const lightbox = document.getElementById('imageLightbox');
+const lightboxImg = document.getElementById('lightboxImg');
+
+document.querySelectorAll('.card img, .gallery img').forEach(image => {
+    image.addEventListener('click', () => {
+        lightbox.style.display = 'flex';
+        lightboxImg.src = image.src;
+        setTimeout(() => { lightbox.classList.add('active'); }, 10);
+    });
+});
+
+function closeLightbox() {
+    lightbox.classList.remove('active');
+    setTimeout(() => { lightbox.style.display = 'none'; }, 200);
+}
+lightbox.addEventListener('click', (e) => { if (e.target === lightbox) closeLightbox(); });
+
+// INTERACTIVE FAQS ENGINE
+function toggleFaq(element) {
+    const faqItem = element.parentElement;
+    const answer = faqItem.querySelector('.faq-answer');
+    const icon = element.querySelector('.faq-icon');
+    
+    if (faqItem.classList.contains('active')) {
+        faqItem.classList.remove('active');
+        answer.style.maxHeight = null;
+        icon.innerText = '+';
+    } else {
+        faqItem.classList.add('active');
+        answer.style.maxHeight = answer.scrollHeight + "px";
+        icon.innerText = '×';
+    }
+}
+
+// PLAYSTORE-STYLE STAR RATING SUBMIT LOGIC
+function submitStarRating(stars) {
+    const statusText = document.getElementById('ratingStatusText');
+    let dynamicMessage = "";
+    
+    if(stars === 5) { dynamicMessage = "Fantastic! Thank you so much for the 5-star rating! ⭐⭐⭐⭐⭐"; }
+    else if(stars === 4) { dynamicMessage = "Thank you! We're glad you liked our service. ⭐⭐⭐⭐"; }
+    else { dynamicMessage = `Thank you for your ${stars}-star feedback! We will keep improving. 👍`; }
+    
+    statusText.style.color = "#d4af37";
+    statusText.innerText = dynamicMessage;
+}
+
+// NEW: LIVE REVIEW SUBMISSION ENGINE (Sends Email & Updates Marquee)
+async function handleLiveReviewSubmit(e) {
+    e.preventDefault();
+    const author = document.getElementById('revAuthor').value.trim();
+    const content = document.getElementById('revContent').value.trim();
+    
+    // Inject visually into the marquee
+    const marquee = document.getElementById('reviewsMarquee');
+    const newReviewHtml = `
+        <div class="review-card-inline" style="border: 1px solid #d4af37; background: #fffdf5;">
+            <p>"${content}"</p>
+            <strong>- ${author} (New!)</strong>
+        </div>`;
+    marquee.innerHTML = newReviewHtml + marquee.innerHTML;
+
+    // Send to Email via FormSubmit
+    try {
+        fetch("https://formsubmit.co/ajax/keertienterprises151@gmail.com", {
+            method: "POST", headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ "Reviewer Name": author, "Review Written": content, "_subject": "⭐ NEW WEBSITE REVIEW!" })
         });
-        function openLightbox(idx) { activeLbIndex = idx; updateLbUI(); const modal = document.getElementById('lightbox-modal'); modal.style.display = 'flex'; setTimeout(() => modal.classList.add('active'), 10); document.body.style.overflow = 'hidden'; }
-        function closeLightbox() { const modal = document.getElementById('lightbox-modal'); modal.classList.remove('active'); setTimeout(() => { modal.style.display = 'none'; document.body.style.overflow = 'auto'; }, 300); }
-        function changeSlide(step) { activeLbIndex += step; if (activeLbIndex >= galleryCollection.length) activeLbIndex = 0; if (activeLbIndex < 0) activeLbIndex = galleryCollection.length - 1; updateLbUI(); }
-        function updateLbUI() { const item = galleryCollection[activeLbIndex]; const img = document.getElementById('lb-image'); img.style.opacity = 0; setTimeout(() => { img.src = item.src; document.getElementById('lb-title').innerText = item.title; document.getElementById('lb-desc').innerText = item.desc; img.style.opacity = 1; }, 150); }
-        document.addEventListener('keydown', (e) => { if (document.getElementById('lightbox-modal').classList.contains('active')) { if (e.key === 'ArrowRight') changeSlide(1); if (e.key === 'ArrowLeft') changeSlide(-1); if (e.key === 'Escape') closeLightbox(); } });
+    } catch (err) {}
 
-        /* 👇 LIVE REVIEW BROADCAST INJECTOR 👇 */
-        async function handleLiveReviewSubmit(e) {
-            e.preventDefault();
-            const author = document.getElementById('revAuthor').value.trim();
-            const content = document.getElementById('revContent').value.trim();
+    alert("✨ Gazab! Aapka review website par live ho chuka hai!");
+    e.target.reset();
+}
 
-            const faces = document.querySelectorAll('#feedback-prism .prism-face');
-            if (faces.length === 3) {
-                faces[2].innerHTML = faces[1].innerHTML;
-                faces[1].innerHTML = faces[0].innerHTML;
-                faces[0].innerHTML = `<p class="prism-text" style="color:#ffd700; font-weight:bold; text-shadow:0 0 10px rgba(255,215,0,0.4);">"${content}"</p><p class="prism-author">- ${author} (Verified)</p>`;
-            }
+// NEW: CONTACT FORM TO EMAIL AND WHATSAPP ENGINE
+async function sendLeadToOwner(e) {
+    e.preventDefault(); 
+    const btn = document.getElementById('formSubBtn'); 
+    const name = document.getElementById('custName').value; 
+    const phone = document.getElementById('custPhone').value; 
+    const email = document.getElementById('custEmail').value; 
+    const msg = document.getElementById('custMsg').value;
+    
+    btn.innerText = "Processing..."; 
+    btn.style.opacity = "0.7";
+    
+    try { 
+        // Send email via FormSubmit
+        await fetch("https://formsubmit.co/ajax/keertienterprises151@gmail.com", { 
+            method: "POST", headers: { 'Content-Type': 'application/json' }, 
+            body: JSON.stringify({ "कस्टमर का नाम": name, "फोन नंबर": phone, "ईमेल": email, "ज़रूरत": msg, "_subject": "🔥 नई लीड: Keerti Enterprises" }) 
+        }); 
+    } catch (err) {}
+    
+    btn.innerText = "Submit & Connect"; 
+    btn.style.opacity = "1";
+    alert("Aapka form submit ho gaya hai! WhatsApp connect ho raha hai...");
+    
+    // Redirect to WhatsApp
+    window.open(`https://wa.me/917275612150?text=Hi%20Keerti%20Enterprises,%20New%20Inquiry:%0A*Name:*%20${name}%0A*Phone:*%20${phone}%0A*Req:*%20${msg}`, '_blank'); 
+    e.target.reset();
+}
 
-            try {
-                fetch("https://formsubmit.co/ajax/keertienterprises151@gmail.com", {
-                    method: "POST", headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ "Reviewer Name": author, "Review Written": content, "_subject": "⭐ NEW WEBSITE REVIEW!" })
-                });
-            } catch (err) { }
+// AI CHATBOT ENGINE (Upgraded with Bhojpuri & smarter responses)
+function toggleChat() {
+    const container = document.getElementById('chatContainer');
+    if(container.style.display === 'flex') { container.style.display = 'none'; } 
+    else { container.style.display = 'flex'; scrollToBottom(); }
+}
 
-            alert("✨ गजब! आपका रिव्यू 3D प्रिज्म में लाइव हो चुका है!");
-            e.target.reset();
+function handleKeyPress(event) { if (event.key === 'Enter') { sendChatMessage(); } }
+
+function sendChatMessage() {
+    const input = document.getElementById('chatInput');
+    const messageText = input.value.trim();
+    if (!messageText) return;
+
+    appendMessage(messageText, 'user');
+    input.value = '';
+
+    setTimeout(() => {
+        let botResponse = "";
+        const text = messageText.toLowerCase().trim();
+        
+        // 1. GREETINGS & BHOJPURI
+        if (text.match(/^(bhojpuri|ka hal|kisan ba)/)) {
+            botResponse = "का हाल बा? हम एकदम मस्त बानी! रउआ बताईं घर खातिर का सेवा कइल जाव?";
+        }
+        else if (text.match(/^(kaise ho|how are you|kya haal|kaise hain|how r u|sab badhiya)/)) {
+            botResponse = "Main ekdam badhiya hun! Aap bataiye, aap kaise hain? Ghar par sab kaisa chal raha hai? 😊";
+        }
+        else if (text.match(/^(hello|hi|hey|namaste|pranam|salam|hola)/)) {
+            botResponse = "Namaste! Keerti Enterprises me aapka swagat hai. Batayein window ke liye kya dekh rahe hain?";
+        }
+        
+        // 2. EMOTIONAL / PROBLEM
+        else if (text.includes('problem') || text.includes('dikkat') || text.includes('help me') || text.includes('shikayat')) {
+            botResponse = "Tension mat lijiye! Main aapki poori baat sunne ke liye taiyar hun. Agar emergency hai toh direct call (+91 72756 12150) par bhi baatein kar sakte hain.";
+        }
+        
+        // 3. CORE BUSINESS
+        else if (text.includes('curtain') || text.includes('parda') || text.includes('parde') || text.includes('fabric')) {
+            botResponse = "Hum Luxury, Designer, aur Blackout Curtains banate hain. Aapko Basti me kahin bhi perfect fitting ke sath parda mil jayega.";
+        }
+        else if (text.includes('blind') || text.includes('zebra') || text.includes('roller') || text.includes('venetian') || text.includes('window')) {
+            botResponse = "Humare pass Roller Blinds, Zebra Blinds, aur Venetian Wooden Blinds ki premium range hai.";
+        }
+        else if (text.match(/(price|cost|quote|daam|rate|kitna|rupay|money)/)) {
+            botResponse = "Exact nap aur discount ke liye hum Free Home Visit inspection dete hain! Pura cost aapke window size par depend karta hai.";
+        }
+        else if (text.match(/(where|location|address|pata|dukan|shop|basti|kahan)/)) {
+            botResponse = "Humara showroom Companybag Chauraha, near Press-Club, Basti mein hai.";
+        }
+        
+        // 4. FALLBACK
+        else {
+            botResponse = "Aap mujhse location, price ya curtains/blinds ke baare mein puch sakte hain. Ya phir direct call karein: 72756 12150";
         }
 
-        /* LEAD ENGINE */
-        async function sendLeadToOwner(e) {
-            e.preventDefault(); const btn = document.getElementById('formSubBtn'); const name = document.getElementById('custName').value; const phone = document.getElementById('custPhone').value; const email = document.getElementById('custEmail').value; const msg = document.getElementById('custMsg').value;
-            btn.innerText = "Processing..."; btn.style.opacity = "0.7";
-            try { await fetch("https://formsubmit.co/ajax/keertienterprises151@gmail.com", { method: "POST", headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ "कस्टमर का नाम": name, "फोन नंबर": phone, "ईमेल": email, "ज़रूरत": msg, "_subject": "🔥 नई लीड: Keerti Enterprises" }) }); } catch (err) { }
-            btn.innerText = "Request Free Visit"; btn.style.opacity = "1";
-            alert("आपका फॉर्म सबमिट हो गया है! WhatsApp कनेक्ट हो रहा है...");
-            window.open(`https://wa.me/917275612150?text=Hi%20Keerti%20Enterprises,%20New%20Inquiry:%0A*Name:*%20${name}%0A*Phone:*%20${phone}%0A*Req:*%20${msg}`, '_blank'); e.target.reset();
-        }
+        appendMessage(botResponse, 'bot');
+    }, 500);
+}
 
-        /* AI BRAIN */
-        function aiResponse() {
-            const inputField = document.getElementById('chat-input'); const input = inputField.value.toLowerCase().trim(); const body = document.getElementById('chat-body'); if (!input) return;
-            body.innerHTML += `<p style="text-align:right; margin-bottom:8px; color:#FF8C00;"><b>You:</b> ${input}</p>`;
-            let reply = "Aap mujhse location, price ya curtains/blinds ke baare mein puch sakte hain. Call: 7275612150";
-            if (input.match(/(location|address|pata|kahan)/)) reply = "Humara showroom Companybag Chauraha, Basti mein hai.";
-            else if (input.match(/(price|rate|daam|cost)/)) reply = "Exact nap aur discount ke liye hum Free Home Visit inspection dete hain!";
-            else if (input.match(/(hello|hi|hey|kaise)/)) reply = "Hum ekdam badhiya hain! Batayein window ke liye kya dekh rahe hain?";
-            else if (input.match(/(bhojpuri|ka hal)/)) reply = "का हाल बा? हम एकदम मस्त बानी! रउआ बताईं घर खातिर का सेवा कइल जाव?";
-            body.innerHTML += `<p style="text-align:left; margin-bottom:12px; color:#0a0a0f; background:#eaeaea; padding:8px; border-radius:6px;"><b>🤖 AI:</b> ${reply}</p>`;
-            inputField.value = ""; body.scrollTop = body.scrollHeight;
-        }
-    </script>
+function appendMessage(text, sender) {
+    const chatMessages = document.getElementById('chatMessages');
+    const messageDiv = document.createElement('div');
+    messageDiv.classList.add('chat-msg', sender);
+    messageDiv.innerText = text;
+    chatMessages.appendChild(messageDiv);
+    scrollToBottom();
+}
+
+function scrollToBottom() {
+    const chatMessages = document.getElementById('chatMessages');
+    chatMessages.scrollTop = chatMessages.scrollHeight;
+}
+</script>
+
 </body>
-
 </html>
